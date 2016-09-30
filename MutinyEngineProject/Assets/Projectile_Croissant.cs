@@ -26,7 +26,7 @@ public class Projectile_Croissant: MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Projectile")
+        if (other.gameObject.tag == "Obstacle")
         {
             Destroy(this.gameObject);
 

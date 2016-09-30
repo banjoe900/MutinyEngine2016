@@ -37,12 +37,9 @@ public class PlayerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerMovement = GetComponent<PlayerMovement>();
-<<<<<<< Updated upstream
-        roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
-        uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
-=======
         //roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
->>>>>>> Stashed changes
+        uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
+        //roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
     }	
 
     public void AddSugar(float damage)
@@ -60,12 +57,8 @@ public class PlayerBehavior : MonoBehaviour {
     void Death()
     {
         //Destroy(this.gameObject);
-<<<<<<< Updated upstream
-        
-=======
         //roundManager.killPlayer(playerMovement.playerNumber);
         this.enabled = false;
->>>>>>> Stashed changes
         this.transform.Rotate(new Vector3(90, 0, 0));
         if (playerMovement == null)
         {
@@ -91,7 +84,7 @@ public class PlayerBehavior : MonoBehaviour {
                 break;           
             case 4:
                 uiManager.changePlayer4SugarLevel(sugarLevel);
-                break;
+                break; 
         }
     }
 }
