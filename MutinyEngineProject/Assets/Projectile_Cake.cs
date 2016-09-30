@@ -37,8 +37,7 @@ public class Projectile_Cake : MonoBehaviour
         {
 
             // Destroy(this.gameObject);
-
-        }
+                 }
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
