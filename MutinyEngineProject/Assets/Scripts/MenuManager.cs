@@ -17,13 +17,7 @@ public class MenuManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-		if (teamScreen){
-
-			if (
-
-		}
-
+		
 	}
 
 	void TeamSelect(){
