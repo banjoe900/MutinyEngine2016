@@ -8,15 +8,20 @@ ModelImporter:
     100000: //RootNode
     100002: cake_low
     100004: cookie_low
+    100006: croissant_low
     400000: //RootNode
     400002: cake_low
     400004: cookie_low
+    400006: croissant_low
     2300000: cake_low
     2300002: cookie_low
+    2300004: croissant_low
     3300000: cake_low
     3300002: cookie_low
+    3300004: croissant_low
     4300000: cookie_low
     4300002: cake_low
+    4300004: croissant_low
   materials:
     importMaterials: 1
     materialName: 0
