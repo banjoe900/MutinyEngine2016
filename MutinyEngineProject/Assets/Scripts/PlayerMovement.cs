@@ -5,9 +5,18 @@ public class PlayerMovement : MonoBehaviour
 {
     public bool isEnabled = true;
 
+    /// <summary>
+    /// The orientation of the controller in the direction of its head.
+    /// </summary>
+    public enum ControllerOrientation { UP, RIGHT, DOWN, LEFT };
+
     private CharacterController controller;
     private float xAxis = 0;
     private float yAxis = 0;
+    /// <summary>
+    /// The current controller orientation of the player.
+    /// </summary>
+    public ControllerOrientation currentOrientation = ControllerOrientation.UP;
 
     [Range(0, 4)]
     public int playerNumber = 1;
@@ -25,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         //player axis
         horizontalAxis = string.Format("P{0} Horizontal", playerNumber);
         verticalAxis = string.Format("P{0} Vertical", playerNumber);
+
+        currentOrientation = ControllerOrientation.UP;
 
         //player colours
         switch (playerNumber)
@@ -51,8 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isEnabled) return;
 
-        xAxis = Input.GetAxis(horizontalAxis);
-        yAxis = Input.GetAxis(verticalAxis);
+        GetAxis(currentOrientation);
 
         //If axis has input then face towards axis
         if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
@@ -88,5 +98,31 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         //Making the character move
         controller.Move(moveDirection * Time.deltaTime);
+    }
+
+    void GetAxis(ControllerOrientation orientation)
+    {
+        switch (orientation)
+        {
+            case ControllerOrientation.UP:
+                xAxis = Input.GetAxis(horizontalAxis);
+                yAxis = Input.GetAxis(verticalAxis);
+                break;
+
+            case ControllerOrientation.RIGHT:
+                xAxis = Input.GetAxis(verticalAxis);
+                yAxis = -Input.GetAxis(horizontalAxis);
+                break;
+
+            case ControllerOrientation.DOWN:
+                xAxis = -Input.GetAxis(horizontalAxis);
+                yAxis = -Input.GetAxis(verticalAxis);
+                break;
+
+            case ControllerOrientation.LEFT:
+                xAxis = -Input.GetAxis(verticalAxis);
+                yAxis = Input.GetAxis(horizontalAxis);
+                break;
+        }
     }
 }
