@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item_Projectiles : MonoBehaviour
+public class Item_Projectiles_No_Rotation : MonoBehaviour
 {
     public float damage;
     public float speed;
     public float lifetime;
-    public float randRotUp;
-    public float randRotRight;
-    public float randRotForward;
     public bool isCookie;
 
     private Rigidbody rb;
@@ -17,16 +14,6 @@ public class Item_Projectiles : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (isCookie == true)
-        {
-            randRotUp = Random.Range(90f, 720f);
-        }
-        else
-        {
-            
-            randRotRight = Random.Range(90f, 720f);
-            randRotForward = Random.Range(90f, 720f);
-        }
         rb = GetComponent<Rigidbody>();
         rb.velocity = transform.forward * speed;
         Destroy(gameObject, lifetime);
@@ -38,7 +25,7 @@ public class Item_Projectiles : MonoBehaviour
         {
 
             Destroy(this.gameObject);
-           
+
         }
         if (other.gameObject.tag == "Player")
         {
@@ -49,12 +36,6 @@ public class Item_Projectiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            transform.Rotate(Vector3.up * Time.deltaTime * randRotUp);
-            transform.Rotate(Vector3.right * Time.deltaTime * randRotRight);
-            transform.Rotate(Vector3.forward * Time.deltaTime * randRotForward);
-         }
+          }
 
-
-    }
-
-
+}
