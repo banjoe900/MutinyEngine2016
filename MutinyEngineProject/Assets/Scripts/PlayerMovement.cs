@@ -37,25 +37,25 @@ public class PlayerMovement : MonoBehaviour
 
         currentOrientation = ControllerOrientation.UP;
 
-        //player colours
-        switch (playerNumber)
-        {
-            case 1:
-                GetComponent<MeshRenderer>().material.color = Color.blue;
-                break;
-            case 2:
-                GetComponent<MeshRenderer>().material.color = Color.red;
-                break;
-            case 3:
-                GetComponent<MeshRenderer>().material.color = Color.yellow;
-                break;
-            case 4:
-                GetComponent<MeshRenderer>().material.color = Color.green;
-                break;
-            default:
-                GetComponent<MeshRenderer>().material.color = Color.grey;
-                break;
-        }
+        ////player colours
+        //switch (playerNumber)
+        //{
+        //    case 1:
+        //        GetComponent<MeshRenderer>().material.color = Color.blue;
+        //        break;
+        //    case 2:
+        //        GetComponent<MeshRenderer>().material.color = Color.red;
+        //        break;
+        //    case 3:
+        //        GetComponent<MeshRenderer>().material.color = Color.yellow;
+        //        break;
+        //    case 4:
+        //        GetComponent<MeshRenderer>().material.color = Color.green;
+        //        break;
+        //    default:
+        //        GetComponent<MeshRenderer>().material.color = Color.grey;
+        //        break;
+        //}
     }
 
     void Update()
