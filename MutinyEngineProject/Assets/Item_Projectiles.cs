@@ -24,7 +24,12 @@ public class Item_Projectiles : MonoBehaviour
         {
 
             Destroy(this.gameObject);
-            //   Projectile.projectile = Cookie;
+           
+        }
+        if (other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
+            Destroy(this.gameObject);
         }
     }
     // Update is called once per frame
