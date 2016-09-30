@@ -48,16 +48,12 @@ public class MenuPlayer : MonoBehaviour {
 					if(transform.localPosition.x > 0){
 						currentState = 1;
 						MenuManager.instance.tealTeam += 1;
-						Debug.Log(MenuManager.instance.orangeTeam);
-						Debug.Log(MenuManager.instance.tealTeam);
 					} else if (currentState == 0 && MenuManager.instance.tealTeam < 2){
-						Debug.Log(MenuManager.instance.orangeTeam);
-						Debug.Log(MenuManager.instance.tealTeam);
+						//don't minus from team
 					} else {
 						currentState = 0;
 						MenuManager.instance.orangeTeam -= 1;
-						Debug.Log(MenuManager.instance.orangeTeam);
-						Debug.Log(MenuManager.instance.tealTeam);
+
 					}
 				}
 
@@ -74,7 +70,7 @@ public class MenuPlayer : MonoBehaviour {
 						currentState = -1;
 						MenuManager.instance.orangeTeam += 1;
 					} else if (currentState == 0 && MenuManager.instance.orangeTeam < 2){
-						//don't minus stuff
+						//don't minus from team
 					} else {
 						currentState = 0;
 						MenuManager.instance.tealTeam -= 1;

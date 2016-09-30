@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
@@ -24,7 +25,8 @@ public class MenuManager : MonoBehaviour {
 	public GameObject[] playerIcons;
 	public GameObject[] playerPos;
 	public GameObject playerIcon;
-	int numPlayers;
+	public Button playButton;
+	int numPlayers = 0;
 	public int orangeTeam = 0;
 	public int tealTeam = 0;
 
@@ -65,12 +67,22 @@ public class MenuManager : MonoBehaviour {
 
 				StartGame();
 			}
-		}
+		} 
 	}
 
 	public void TeamSelect(){
 
-		numPlayers = Input.GetJoystickNames().Length;
+		numPlayers = 0;
+
+		//numPlayers = Input.GetJoystickNames().Length;
+		foreach (string joystick in Input.GetJoystickNames())
+		{
+			if(joystick != "")
+			{
+				numPlayers += 1;
+			}
+		}
+		Debug.Log(numPlayers);
 
 		playerIcons = new GameObject[numPlayers];
 
@@ -85,7 +97,7 @@ public class MenuManager : MonoBehaviour {
 
 	public void MainMenu(){
 		
-
+		playButton.Select();
 		mainMenu.SetActive(true);
 		teamSelect.SetActive(false);
 		teamScreen = false;
@@ -108,6 +120,10 @@ public class MenuManager : MonoBehaviour {
 		foreach (GameObject icon in playerIcons){
 
 			if (!icon.GetComponent<MenuPlayer>().playerReady){
+				return false;
+			}
+			if(tealTeam == 0 || orangeTeam == 0)
+			{
 				return false;
 			}
 		}
