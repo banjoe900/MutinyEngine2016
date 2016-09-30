@@ -1,27 +1,29 @@
 fileFormatVersion: 2
-guid: 9340734fb556e0c45914ffffa642d174
-timeCreated: 1475231971
+guid: 0ea8359175b5c8d48afc632bfea59311
+timeCreated: 1475236046
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: cake_low
-    100004: cookie_low
-    100006: croissant_low
-    400000: //RootNode
-    400002: cake_low
-    400004: cookie_low
-    400006: croissant_low
-    2300000: cake_low
-    2300002: cookie_low
-    2300004: croissant_low
-    3300000: cake_low
-    3300002: cookie_low
-    3300004: croissant_low
-    4300000: cookie_low
-    4300002: cake_low
-    4300004: croissant_low
+    100000: Cube
+    100002: Cube_001
+    100004: Cylinder
+    100006: //RootNode
+    400000: Cube
+    400002: Cube_001
+    400004: Cylinder
+    400006: //RootNode
+    2300000: Cube
+    2300002: Cube_001
+    2300004: Cylinder
+    3300000: Cube
+    3300002: Cube_001
+    3300004: Cylinder
+    4300000: Cube_001
+    4300002: Cube
+    4300004: Cylinder
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -80,7 +82,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

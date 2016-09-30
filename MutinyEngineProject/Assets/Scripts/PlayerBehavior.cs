@@ -47,13 +47,14 @@ public class PlayerBehavior : MonoBehaviour {
 
     void Death()
     {
-        if (playerMovement == null)
+        Destroy(this.gameObject);
+        /*if (playerMovement == null)
         {
             playerMovement = GetComponent<PlayerMovement>();
         }
         else
         {
             playerMovement.isEnabled = false;
-        }
+        }*/
     }
 }
