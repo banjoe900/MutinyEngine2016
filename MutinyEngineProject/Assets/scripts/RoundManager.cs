@@ -54,7 +54,6 @@ public class RoundManager : MonoBehaviour {
 
     private void newRound(string winningTeam) {
         if (currentRound != numberOfRounds) {
-            //stop all player movement
             currentRound++;
             uiManager.changeRoundNumber(currentRound);
             //change ui depending on what team won
@@ -70,16 +69,21 @@ public class RoundManager : MonoBehaviour {
                 Debug.Log("hey stupid, the teams are blue and orange");
             }
 
+
             setPlayersAlive();
             resetPlayerPositions();
             resetPlayersSugarLevel();
+            resetUi();
+            
             //remove any items players are holding
-            //destroy any projectiles that are left
+            destroyAllProjectiles();
+
             //reset stalls
 
             //chose rules for next round
+            //display mid round screen?
             //now start the next round
-            //enable all player movement
+            enablePlayerMovements();
         } else { //that was the last round pick the winner
 
         }
@@ -90,16 +94,15 @@ public class RoundManager : MonoBehaviour {
     /// sends all the players back to their inital starting positions
     /// </summary>
     private void resetPlayerPositions() {
-        player1.transform.rotation = Quaternion.identity;
-        player2.transform.rotation = Quaternion.identity;
-        player3.transform.rotation = Quaternion.identity;
-        player4.transform.rotation = Quaternion.identity;
-
         player1.transform.position = player1StartingPosition;
         player2.transform.position = player2StartingPosition;
         player3.transform.position = player3StartingPosition;
         player4.transform.position = player4StartingPosition;
-        
+        player1.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player2.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player3.transform.rotation = Quaternion.Euler(0, 0, 0);
+        player4.transform.rotation = Quaternion.Euler(0, 0, 0);
+
     }
 
     /// <summary>
@@ -160,4 +163,32 @@ public class RoundManager : MonoBehaviour {
         player3.GetComponent<PlayerBehavior>().sugarLevel = 0;
         player4.GetComponent<PlayerBehavior>().sugarLevel = 0;
     }
+
+    /// <summary>
+    /// deletes all objects in the scene with the tag projectile
+    /// </summary>
+    private void destroyAllProjectiles() {
+        GameObject[] projectiles = GameObject.FindGameObjectsWithTag("projectile");
+        for (int i = 0; i < projectiles.Length; i++) {
+            Destroy(projectiles[i]);
+        }
+    }
+
+    /// <summary>
+    /// enables the movement of all players
+    /// </summary>
+    private void enablePlayerMovements() {
+        player1.GetComponent<PlayerMovement>().isEnabled = true;
+        player2.GetComponent<PlayerMovement>().isEnabled = true;
+        player3.GetComponent<PlayerMovement>().isEnabled = true;
+        player4.GetComponent<PlayerMovement>().isEnabled = true;
+    }
+
+    private void resetUi() {
+        player1.GetComponent<PlayerBehavior>().updateUi();
+        player2.GetComponent<PlayerBehavior>().updateUi();
+        player3.GetComponent<PlayerBehavior>().updateUi();
+        player4.GetComponent<PlayerBehavior>().updateUi();
+    }
+    
 }

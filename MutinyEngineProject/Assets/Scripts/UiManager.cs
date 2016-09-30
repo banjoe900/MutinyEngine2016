@@ -6,9 +6,13 @@ public class UiManager : MonoBehaviour {
     public Text roundNumbnerText;
     public Text blueWinsText;
     public Text orangeWinsText;
+    public Text player1SugarLevelText;
+    public Text player2SugarLevelText;
+    public Text player3SugarLevelText;
+    public Text player4SugarLevelText;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         init();
 	}
 	
@@ -43,5 +47,21 @@ public class UiManager : MonoBehaviour {
     /// <param name="newWinsNumber">the orange wins number that should be displayed in the ui</param>
     public void changeOrangeWins(int newWinsNumber) {
         orangeWinsText.text = newWinsNumber.ToString();
+    }
+
+    public void changePlayer1SugarLevel(float newSugarLevel) {
+        player1SugarLevelText.text = newSugarLevel.ToString() + "%";
+    }
+
+    public void changePlayer2SugarLevel(float newSugarLevel) {
+        player2SugarLevelText.text = newSugarLevel.ToString() + "%";
+    }
+
+    public void changePlayer3SugarLevel(float newSugarLevel) {
+        player3SugarLevelText.text = newSugarLevel.ToString() + "%";
+    }
+
+    public void changePlayer4SugarLevel(float newSugarLevel) {
+        player4SugarLevelText.text = newSugarLevel.ToString() + "%";
     }
 }
