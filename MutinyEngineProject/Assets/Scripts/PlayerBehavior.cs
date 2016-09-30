@@ -37,21 +37,21 @@ public class PlayerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerMovement = GetComponent<PlayerMovement>();
-        //roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
+        roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
-        //roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
     }	
 
     public void AddSugar(float damage)
     {
         sugarLevel += damage;
-        if(sugarLevel >= sugarLimit)
+        updateUi();
+        if (sugarLevel >= sugarLimit)
         {
             sugarLevel = sugarLimit;
             IsAlive = false;
             
         }
-        updateUi();
+
     }
 
     void Death()
