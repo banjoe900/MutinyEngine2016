@@ -4,14 +4,29 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour {
 
+	public static MenuManager _instance;
+	public static MenuManager instance
+	{
+		get
+		{
+			if(_instance == null)
+			{
+				_instance = GameObject.FindObjectOfType<MenuManager>();
+			}
+			return _instance;
+			
+		}
+	}
+
+
 	public GameObject mainMenu;
 	public GameObject teamSelect;
-	public GameObject[] readyMarks;
 	public GameObject[] playerIcons;
 	public GameObject[] playerPos;
+	public GameObject playerIcon;
 	int numPlayers;
-
-	int index = 0;
+	public int orangeTeam = 0;
+	public int tealTeam = 0;
 
 	bool teamScreen = false;
 
@@ -26,11 +41,29 @@ public class MenuManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(teamScreen){			
+		if(teamScreen){
+
 			if (Input.GetButtonDown("Cancel")){
-				
+				foreach (GameObject icon in playerIcons)
+				{
+					Destroy(icon);
+				}
+				orangeTeam = 0;
+				tealTeam= 0;
 				MainMenu();
 
+			}
+			if(Input.GetButtonDown("Submit")){
+
+				/*foreach (GameObject icon in playerIcons)
+				{
+					ADD PLAYERS TO GAME MANAGER TEAM ARRAYS
+					if (icon.GetComponent<MenuPlayer>().isOrange){
+							gameManager.orangeTeam.Add(player);
+					}
+				}*/
+
+				StartGame();
 			}
 		}
 	}
@@ -40,7 +73,6 @@ public class MenuManager : MonoBehaviour {
 		numPlayers = Input.GetJoystickNames().Length;
 
 		playerIcons = new GameObject[numPlayers];
-		readyMarks = new GameObject[numPlayers];
 
 		teamSelect.SetActive(true);
 		mainMenu.SetActive(false);
@@ -52,6 +84,7 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void MainMenu(){
+		
 
 		mainMenu.SetActive(true);
 		teamSelect.SetActive(false);
@@ -63,7 +96,8 @@ public class MenuManager : MonoBehaviour {
 	public void StartGame(){
 
 		if (ValidStart()){
-			SceneManager.LoadScene("bake sale");
+			//SceneManager.LoadScene("bake sale");
+			Debug.Log("LOAD LEVEL");
 		}
 
 
@@ -71,9 +105,9 @@ public class MenuManager : MonoBehaviour {
 
 	bool ValidStart(){
 
-		foreach (GameObject mark in readyMarks){
+		foreach (GameObject icon in playerIcons){
 
-			if (!mark.activeSelf){
+			if (!icon.GetComponent<MenuPlayer>().playerReady){
 				return false;
 			}
 		}
@@ -83,17 +117,12 @@ public class MenuManager : MonoBehaviour {
 
 	void SpawnPlayers(){
 
-		index = 0;
+		for (int i = 0; i < playerIcons.Length; i++){
 
-		foreach (GameObject player in playerIcons){
-
-			GameObject newPlayer = Instantiate(player, playerPos[index].transform.position, Quaternion.identity) as GameObject;
-			playerIcons[index] = newPlayer;
-			readyMarks[index] = newPlayer.GetComponentInChildren<GameObject>();
-			readyMarks[index].gameObject.SetActive(false);
-			index += 1;
-
+			GameObject newPlayer = Instantiate(playerIcon, playerPos[i].transform.position, Quaternion.identity) as GameObject;
+			newPlayer.transform.SetParent(teamSelect.transform);
+			newPlayer.GetComponent<MenuPlayer>().playerNumber = i+1;
+			playerIcons[i] = newPlayer;
 		}
-	}
-		
+	}	
 }
