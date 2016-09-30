@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item_Projectiles : MonoBehaviour
+public class Projectile_Croissant: MonoBehaviour
 {
     public float damage;
     public float speed;
     public float lifetime;
     private float randRotUp;
-    private float randRotRight;
-    private float randRotForward;
-    public bool isCookie;
 
     private Rigidbody rb;
     public GameObject Cookie;
@@ -18,35 +15,21 @@ public class Item_Projectiles : MonoBehaviour
     void Start()
     {
         randRotUp = Random.Range(90f, 720f);
-        randRotRight = Random.Range(90f, 720f);
-        randRotForward = Random.Range(90f, 720f);
 
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-        if (isCookie == true)
-        {
-            transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
-        }
-        else
-        {
-            transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
-            transform.Rotate(Vector3.right * randRotRight / Time.deltaTime);
-            transform.Rotate(Vector3.forward * randRotForward / Time.deltaTime);
+        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
 
-        }
-        
-        
         Destroy(gameObject, lifetime);
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Obstacle" || other.gameObject.tag == "Projectile")
         {
+            Destroy(this.gameObject);
 
-           // Destroy(this.gameObject);
-           
         }
         if (other.gameObject.tag == "Player")
         {
@@ -57,10 +40,10 @@ public class Item_Projectiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-         }
-
-
+        rb.AddForce(transform.forward*( -300 * Time.deltaTime));
     }
+
+
+}
 
 
