@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public ControllerOrientation currentOrientation = ControllerOrientation.UP;
 
-    [Range(0, 4)]
+    [Range(1, 4)]
     public int playerNumber = 1;
     public float speed = 6.0F;
     public float leftThumbstickAngle = 0;
