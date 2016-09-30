@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item_Projectiles : MonoBehaviour
+public class Projectile_Cake : MonoBehaviour
 {
     public float damage;
     public float speed;
@@ -9,10 +9,10 @@ public class Item_Projectiles : MonoBehaviour
     private float randRotUp;
     private float randRotRight;
     private float randRotForward;
-    public bool isCookie;
+    
 
     private Rigidbody rb;
-    public GameObject Cookie;
+    public GameObject Projectile;
 
     // Use this for initialization
     void Start()
@@ -24,20 +24,11 @@ public class Item_Projectiles : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-        if (isCookie == true)
-        {
-            transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
-        }
-        else
-        {
             transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
             transform.Rotate(Vector3.right * randRotRight / Time.deltaTime);
             transform.Rotate(Vector3.forward * randRotForward / Time.deltaTime);
 
-        }
-        
-        
-        Destroy(gameObject, lifetime);
+            Destroy(gameObject, lifetime);
     }
 
     void OnCollisionEnter(Collision other)
@@ -45,8 +36,8 @@ public class Item_Projectiles : MonoBehaviour
         if (other.gameObject.tag == "Obstacle")
         {
 
-           // Destroy(this.gameObject);
-           
+            // Destroy(this.gameObject);
+
         }
         if (other.gameObject.tag == "Player")
         {
@@ -58,9 +49,9 @@ public class Item_Projectiles : MonoBehaviour
     void Update()
     {
 
-         }
-
-
     }
+
+
+}
 
 

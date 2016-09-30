@@ -30,7 +30,7 @@ public class Player_Projectiles : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))
         {
             Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-            transform.Rotate(Vector3.right * Time.deltaTime);
+           
 
         }
     }
