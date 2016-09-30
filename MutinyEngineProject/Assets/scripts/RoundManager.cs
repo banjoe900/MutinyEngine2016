@@ -81,6 +81,7 @@ public class RoundManager : MonoBehaviour {
             //reset stalls
 
             //chose rules for next round
+            randomiseControllerOrientation();
             //display mid round screen?
             //now start the next round
             enablePlayerMovements();
@@ -191,4 +192,13 @@ public class RoundManager : MonoBehaviour {
         player4.GetComponent<PlayerBehavior>().updateUi();
     }
     
+    private void randomiseControllerOrientation()
+    {
+        int randomInt = Random.Range(0, 4);
+        PlayerMovement.ControllerOrientation orientation = (PlayerMovement.ControllerOrientation)randomInt;
+        player1.GetComponent<PlayerMovement>().currentOrientation = orientation;
+        player2.GetComponent<PlayerMovement>().currentOrientation = orientation;
+        player3.GetComponent<PlayerMovement>().currentOrientation = orientation;
+        player4.GetComponent<PlayerMovement>().currentOrientation = orientation;
+    }
 }
