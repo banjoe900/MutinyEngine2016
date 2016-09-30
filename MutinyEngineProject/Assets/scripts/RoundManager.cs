@@ -7,6 +7,8 @@ public class RoundManager : MonoBehaviour {
     private int blueWins;
     private int orangeWins;
 
+    public ControllerSpin controllerSpin;
+
     //team 1
     public GameObject player1;
     private Vector3 player1StartingPosition;
@@ -195,10 +197,17 @@ public class RoundManager : MonoBehaviour {
     private void randomiseControllerOrientation()
     {
         int randomInt = Random.Range(0, 4);
+        if (randomInt == (int)player1.GetComponent<PlayerMovement>().currentOrientation)
+        {
+            randomInt++;
+            if (randomInt > 3) randomInt = 2;
+        }
         PlayerMovement.ControllerOrientation orientation = (PlayerMovement.ControllerOrientation)randomInt;
         player1.GetComponent<PlayerMovement>().currentOrientation = orientation;
         player2.GetComponent<PlayerMovement>().currentOrientation = orientation;
         player3.GetComponent<PlayerMovement>().currentOrientation = orientation;
         player4.GetComponent<PlayerMovement>().currentOrientation = orientation;
+        controllerSpin = FindObjectOfType<ControllerSpin>();
+        if(controllerSpin != null) controllerSpin.SetOrientation(orientation);
     }
 }
