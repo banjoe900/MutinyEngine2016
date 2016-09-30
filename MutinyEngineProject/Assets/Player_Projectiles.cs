@@ -4,48 +4,60 @@ using System.Collections;
 public class Player_Projectiles : MonoBehaviour
 {
     public GameObject projectile;
+    private GameObject potentialPickup;
     public Transform ProjectileSpawn;
+    private bool canPickup = false;
 
     private int playerNumber;
     private string submit;
-
-    public float projectileDamage;
-    public float projectileSpeed;
-    public float projectileLifetime;
-    public GameObject Cookie;
-    public GameObject Cake;
 
     // Use this for initialization
     void Start()
     {
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
-        projectile = Cake;
         submit = string.Format("P{0} Attack", playerNumber);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))
+        if (canPickup)
         {
-            Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-            transform.Rotate(Vector3.right * Time.deltaTime);
-
+            if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(submit))
+            {
+                if (potentialPickup != projectile)
+                {
+                    projectile = potentialPickup;
+                }
+                else
+                {
+                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))
+            {
+                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+            }
         }
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Cookie_Powerup")
+        if (other.gameObject.tag == "StallTrigger")
         {
-            projectile = Cookie;
-            Destroy(other.gameObject);
-            
+            Debug.Log("stall");
+            canPickup = true;
+            potentialPickup = other.GetComponentInParent<Stall>().bakedGood;
         }
-        if (other.gameObject.tag == "Cake_Powerup")
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "StallTrigger")
         {
-            projectile = Cake;
-            Destroy(other.gameObject);
+            canPickup = false;
         }
     }
 }
