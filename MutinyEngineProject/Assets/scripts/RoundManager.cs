@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class RoundManager : MonoBehaviour {
+    public int numberOfRounds = 5;
     private int currentRound;
     private int blueWins;
     private int orangeWins;
@@ -52,40 +53,53 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
-        //stop all player movement
-        currentRound++;
-        uiManager.changeRoundNumber(currentRound);
-        //change ui depending on what team won
-        if (winningTeam == "blue") {
-            blueWins++;
-            uiManager.changeBlueWins(blueWins);
-        } else if (winningTeam == "orange") {
-            orangeWins++;
-            uiManager.changeOrangeWins(orangeWins);
-        } else {
-            Debug.Log("hey stupid, the teams are blue and orange");
+        if (currentRound != numberOfRounds) {
+            //stop all player movement
+            currentRound++;
+            uiManager.changeRoundNumber(currentRound);
+            //change ui depending on what team won
+            if (winningTeam == "blue") {
+                blueWins++;
+                uiManager.changeBlueWins(blueWins);
+            }
+            else if (winningTeam == "orange") {
+                orangeWins++;
+                uiManager.changeOrangeWins(orangeWins);
+            }
+            else {
+                Debug.Log("hey stupid, the teams are blue and orange");
+            }
+
+            setPlayersAlive();
+            resetPlayerPositions();
+            resetPlayersSugarLevel();
+            //remove any items players are holding
+            //destroy any projectiles that are left
+            //reset stalls
+
+            //chose rules for next round
+            //now start the next round
+            //enable all player movement
+        } else { //that was the last round pick the winner
+
         }
 
-        setPlayersAlive();
-        resetPlayerPositions();
-        //reset players health
-        //remove any items players are holding
-        //destroy any projectiles that are left
-        //reset stalls
-
-        //chose rules for next round
-        //now start the next round
-        //enable all player movement
     }
 
     /// <summary>
     /// sends all the players back to their inital starting positions
     /// </summary>
     private void resetPlayerPositions() {
+        player1.transform.rotation = Quaternion.identity;
+        player2.transform.rotation = Quaternion.identity;
+        player3.transform.rotation = Quaternion.identity;
+        player4.transform.rotation = Quaternion.identity;
+
         player1.transform.position = player1StartingPosition;
         player2.transform.position = player2StartingPosition;
         player3.transform.position = player3StartingPosition;
         player4.transform.position = player4StartingPosition;
+        
     }
 
     /// <summary>
@@ -135,5 +149,15 @@ public class RoundManager : MonoBehaviour {
         player2Alive = true;
         player3Alive = true;
         player4Alive = true;
+    }
+
+    /// <summary>
+    /// sets the sugar levels of all the players to 0
+    /// </summary>
+    private void resetPlayersSugarLevel() {
+        player1.GetComponent<PlayerBehavior>().sugarLevel = 0;
+        player2.GetComponent<PlayerBehavior>().sugarLevel = 0;
+        player3.GetComponent<PlayerBehavior>().sugarLevel = 0;
+        player4.GetComponent<PlayerBehavior>().sugarLevel = 0;
     }
 }
