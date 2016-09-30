@@ -6,8 +6,10 @@ public class MenuManager : MonoBehaviour {
 
 	public GameObject mainMenu;
 	public GameObject teamSelect;
-	public Scene level;
 	bool teamScreen = false;
+
+	[Range(1, 4)]
+	public int playerNumber = 1;
 
 
 	// Use this for initialization
@@ -22,9 +24,8 @@ public class MenuManager : MonoBehaviour {
 
 	void TeamSelect(){
 
-		mainMenu.SetActive = false;
-		teamSelect.SetActive = true;
-
+		teamSelect.SetActive(true);
+		mainMenu.SetActive(false);
 
 	}
 
@@ -37,10 +38,7 @@ public class MenuManager : MonoBehaviour {
 
 	void StartGame(){
 
-		SceneManager.LoadScene(level);
+		SceneManager.LoadScene("bake sale");
 
 	}
-
-
-
 }
