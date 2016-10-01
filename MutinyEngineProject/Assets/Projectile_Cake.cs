@@ -9,6 +9,7 @@ public class Projectile_Cake : MonoBehaviour
     private float randRotUp;
     private float randRotRight;
     private float randRotForward;
+    public GameObject impactParticle;
     
 
     private Rigidbody rb;
@@ -33,11 +34,12 @@ public class Projectile_Cake : MonoBehaviour
     {
         if (other.gameObject.tag == "Obstacle")
         {
-
+            
             // Destroy(this.gameObject);
-                 }
+        }
         if (other.gameObject.tag == "Player")
         {
+            Instantiate(impactParticle, transform.position, transform.rotation);
             other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
             Destroy(this.gameObject);
         }
