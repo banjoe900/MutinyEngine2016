@@ -135,47 +135,18 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cakes")
             {
                 playerMovement.animator.SetTrigger("BigThrow");
-                if (Projectile_triple == true)
-                {
-                    index = Random.Range(0, Cakes.Length);
-                    Cakes_Projectile = Cakes[index];
-                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Cakes.Length);
-                    Cakes_Projectile = Cakes[index];
-                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Cakes.Length);
-                    Cakes_Projectile = Cakes[index];
-                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3;
-                }
-                else
-                {
                     Debug.Log(Cakes.Length);
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Player_Ammo = Player_Ammo - 1;
-                }
+                
             }
             if (projectileName == "Croissants")
             {
                 playerMovement.animator.SetTrigger("SmallThrow");
                 if (Projectile_triple == true)
-                {
-                    index = Random.Range(0, Croissants.Length);
-                    Croissants_Projectile = Croissants[index];
-                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Croissants.Length);
-                    Croissants_Projectile = Croissants[index];
-                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Croissants.Length);
-                    Croissants_Projectile = Croissants[index];
-                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3;
-                }
-                else
-                {
-                    index = Random.Range(0, Croissants.Length);
+                {   index = Random.Range(0, Croissants.Length);
                     Croissants_Projectile = Croissants[index];
                     Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Player_Ammo = Player_Ammo - 1;
@@ -184,8 +155,6 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cookies")
             {
                 playerMovement.animator.SetTrigger("SmallThrow");
-                if (Projectile_triple == true)
-                {
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
                     Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
@@ -195,33 +164,12 @@ public class Player_Projectiles : MonoBehaviour
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
                     Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3;
-                }
-                else
-                {
-                    index = Random.Range(0, Cookies.Length);
-                    Cookies_Projectile = Cookies[index];
-                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Player_Ammo = Player_Ammo - 1;
                 }
-            }
             if (projectileName == "Pies")
             {
                 playerMovement.animator.SetTrigger("BigThrow");
                 if (Projectile_triple == true)
-                {
-                    index = Random.Range(0, Pies.Length);
-                    Pies_Projectile = Pies[index];
-                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Pies.Length);
-                    Pies_Projectile = Pies[index];
-                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    index = Random.Range(0, Pies.Length);
-                    Pies_Projectile = Pies[index];
-                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3;
-                }
-                else
                 {
                     index = Random.Range(0, Pies.Length);
                     Pies_Projectile = Pies[index];
