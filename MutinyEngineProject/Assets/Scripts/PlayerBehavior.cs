@@ -10,8 +10,10 @@ public class PlayerBehavior : MonoBehaviour {
     
     public float sugarLimit = 100;
     public float sugarLevel = 0;
+    public float sugarDecay = 4;
 
     private PlayerMovement playerMovement;
+    public SkinnedMeshRenderer playerSkinMesh;
 
     private RoundManager roundManager;
     private UiManager uiManager;
@@ -48,14 +50,15 @@ public class PlayerBehavior : MonoBehaviour {
 
     void Update()
     {
-        float fattyFattyBoomBah = 1 - sugarLevel / sugarLimit / 2;
+        float fattyFattyBoomBah = 1 - sugarLevel / sugarLimit / 1.5f;
         playerMovement.speed = playerMovement.initialSpeed * fattyFattyBoomBah;
+        playerSkinMesh.SetBlendShapeWeight(0, sugarLevel / sugarLimit * 100);
     }
 
     public void AddSugar(float damage, Player_Projectiles.ProjectileWeightClass weight = Player_Projectiles.ProjectileWeightClass.Other)
     {
         sugarLevel += damage;
-        Mathf.Clamp(sugarLevel, 0, sugarLimit);
+        sugarLevel = Mathf.Clamp(sugarLevel, 0, sugarLimit);
         updateUi();
         if (sugarLevel >= sugarLimit)
         {
@@ -94,8 +97,8 @@ public class PlayerBehavior : MonoBehaviour {
 
     public void updateUi() {
         Start();
-        uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
-        uiPlayerSugarLevel.text = sugarLevel.ToString() + "%";
+        if(uiPlayerName != null) uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
+        if (uiPlayerSugarLevel != null) uiPlayerSugarLevel.text = sugarLevel.ToString() + "%";
     }
 
     public void changePortColour(string colour) {

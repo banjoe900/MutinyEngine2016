@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float yAxis = 0;
 
     public Animator animator;
+    private PlayerBehavior behavior;
 
     /// <summary>
     /// The current controller orientation of the player.
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         speed = initialSpeed;
         controller = GetComponent<CharacterController>();
+        behavior = GetComponent<PlayerBehavior>();
 
         //player axis
         horizontalAxis = string.Format("P{0} Horizontal", playerNumber);
@@ -48,9 +50,16 @@ public class PlayerMovement : MonoBehaviour
 		if (isEnabled) {
 
 	        GetAxis(currentOrientation);
-            
+
             //Set movementspeed in animator
-            animator.SetFloat("MovementSpeed", Mathf.Abs(xAxis) + Mathf.Abs(yAxis));
+            float combinedInput = Mathf.Clamp(Mathf.Abs(xAxis) + Mathf.Abs(yAxis), 0, 1);
+            animator.SetFloat("MovementSpeed", combinedInput);
+
+            //Regenerate health while walking
+            if(combinedInput > 0)
+            {
+                behavior.AddSugar(-(Time.deltaTime * behavior.sugarDecay));
+            }
 
 	        //If axis has input then face towards axis
 	        if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)

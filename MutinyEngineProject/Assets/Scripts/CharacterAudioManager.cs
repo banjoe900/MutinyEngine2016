@@ -3,7 +3,8 @@ using System.Collections;
 
 public class CharacterAudioManager : MonoBehaviour {
 
-    public AudioSourceManager footsteps;
+    public AudioSourceManager lightFootsteps;
+    public AudioSourceManager heavyFootsteps;
     public AudioSourceManager impact;
     public AudioSourceManager throwing;
     public AudioSourceManager pickup;
@@ -22,7 +23,15 @@ public class CharacterAudioManager : MonoBehaviour {
 
     public void PlayFootstepAudio()
     {
-        PlayRandomFromClips(footsteps);
+        var behavior = GetComponentInParent<PlayerBehavior>();
+        if(behavior.sugarLevel >= behavior.sugarLimit / 2)
+        {
+            PlayRandomFromClips(heavyFootsteps);
+        }
+        else
+        {
+            PlayRandomFromClips(lightFootsteps);
+        }
     }
 
     public void PlayPickupAudio()
