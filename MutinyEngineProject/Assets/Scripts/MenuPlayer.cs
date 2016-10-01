@@ -40,7 +40,8 @@ public class MenuPlayer : MonoBehaviour {
             //Check which way the player wants to move and see if they meet the requirements
             if (Input.GetAxisRaw(horizontalAxis) == 1 && currentState != 1) {
                 if (currentState == -1 || MenuManager.instance.tealTeam < 2) {
-                    this.gameObject.transform.Translate(new Vector2(350, 0));
+                    this.gameObject.transform.Translate(new Vector2(300, 0));
+					Debug.Log(transform.localPosition);
 
                     if (transform.localPosition.x > 0) {
                         currentState = 1;
@@ -63,7 +64,8 @@ public class MenuPlayer : MonoBehaviour {
             }
             else if (Input.GetAxisRaw(horizontalAxis) == -1 && currentState != -1) {
                 if (currentState == 1 || MenuManager.instance.orangeTeam < 2) {
-                    this.gameObject.transform.Translate(new Vector2(-350, 0));
+                    this.gameObject.transform.Translate(new Vector2(-300, 0));
+					Debug.Log(transform.localPosition);
 
                     if (transform.localPosition.x < 0) {
                         currentState = -1;
