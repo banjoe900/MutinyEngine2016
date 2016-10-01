@@ -23,9 +23,6 @@ public class Player_Projectiles : MonoBehaviour
     public GameObject heldCake;
     public GameObject heldCookie;
     public GameObject heldCroissant;
-    public Material Red;
-    public Material Green;
-    public Material Blue;
     public GameObject[] Cakes;
     GameObject Cakes_Projectile;
     public GameObject[] Croissants;

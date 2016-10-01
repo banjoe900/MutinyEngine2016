@@ -35,9 +35,8 @@ public class Projectile_Cake : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Smear_List = GameObject.FindGameObjectsWithTag("Smears");
-        index = Random.Range(0, Smear_List.Length);
-        Smear = Smear_List[index];
+       // index = Random.Range(0, Smear_List.Length);
+       //Smear = Smear_List[index];
         if (other.gameObject.tag == "Obstacle")
         {
  
