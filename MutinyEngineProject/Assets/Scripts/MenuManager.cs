@@ -27,6 +27,8 @@ public class MenuManager : MonoBehaviour {
     public int orangeTeam = 0;
     public int tealTeam = 0;
 
+	public Sprite[] spriteArray = new Sprite[4];
+
     bool teamScreen = false;
 
     public List<int> blueTeamMembers = new List<int>();
@@ -126,6 +128,7 @@ public class MenuManager : MonoBehaviour {
             GameObject newPlayer = Instantiate(playerIcon, playerPos[i].transform.position, Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(teamSelect.transform);
             newPlayer.GetComponent<MenuPlayer>().playerNumber = i + 1;
+			newPlayer.GetComponent<Image>().sprite = spriteArray[i];
             playerIcons[i] = newPlayer;
         }
     }

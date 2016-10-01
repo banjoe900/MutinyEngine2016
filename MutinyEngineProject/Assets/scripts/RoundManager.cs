@@ -30,6 +30,8 @@ public class RoundManager : MonoBehaviour {
     private int blueDeaths;
     private int orangeDeaths;
 
+	public bool winScreen = false;
+
     // Use this for initialization
     void Start () {
         init();
@@ -37,6 +39,12 @@ public class RoundManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (winScreen){
+			if(Input.GetButtonDown("Submit")){
+					SceneManager.LoadScene(0);
+				}
+		}
 	
 	}
 
@@ -69,10 +77,12 @@ public class RoundManager : MonoBehaviour {
             uiManager.changeRoundNumber(currentRound);
             //change ui depending on what team won
             if (winningTeam == "blue") {
+				
                 blueWins++;
                 uiManager.changeBlueWins(blueWins);
             }
             else if (winningTeam == "orange") {
+				
                 orangeWins++;
                 uiManager.changeOrangeWins(orangeWins);
             }
@@ -96,16 +106,20 @@ public class RoundManager : MonoBehaviour {
             enablePlayerMovements();
         } else { //that was the last round pick the winner
 			if(blueWins > orangeWins){
-				DisableControls();
+				DisableMovement();
 				uiManager.blueWinScreen.SetActive(true);
+				winScreen = true;
+				Debug.Log("Blue wins");
 			} else {
-				DisableControls();
+				DisableMovement();
 				uiManager.orangeWinScreen.SetActive(true);
-			}
+				winScreen = true;
+				Debug.Log("orange wins");
+			}				
         }
     }
 
-	public void DisableControls(){
+	public void DisableMovement(){
 		foreach (GameObject player in blueTeamPlayers)
 		{
 			player.GetComponent<PlayerMovement>().isEnabled = false;

@@ -141,7 +141,7 @@ public class Player_Projectiles : MonoBehaviour
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Player_Ammo = Player_Ammo - 3;}
                 else
-                {   Debug.Log(Cakes.Length);
+                { 
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
@@ -228,7 +228,6 @@ public class Player_Projectiles : MonoBehaviour
     {
         if (other.gameObject.tag == "StallTrigger")
         {
-            Debug.Log("stall");
             canPickup = true;
             currentStall = other.GetComponentInParent<Stall>();
             projectileName = other.GetComponentInParent<Stall>().goodName;
