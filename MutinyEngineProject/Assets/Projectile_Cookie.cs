@@ -26,7 +26,7 @@ public class Projectile_Cookie : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle"|| other.gameObject.tag == "Projectile")
+        if (other.gameObject.tag == "Obstacle"|| other.gameObject.tag == "Cakes_Projectile" || other.gameObject.tag == "Croissants_Projectile" || other.gameObject.tag == "Cookies_Projectile")
         {
 
             rb.velocity = Vector3.zero;
