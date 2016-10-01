@@ -6,6 +6,7 @@ public class Projectile_Croissant: MonoBehaviour
     public float damage;
     public float speed;
     public float lifetime;
+    public float returnForce;
     
 
     private Rigidbody rb;
@@ -40,7 +41,7 @@ public class Projectile_Croissant: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddForce(transform.forward*( -300 * Time.deltaTime));
+        rb.AddForce(transform.forward*( -returnForce * Time.deltaTime));
         
     }
 
