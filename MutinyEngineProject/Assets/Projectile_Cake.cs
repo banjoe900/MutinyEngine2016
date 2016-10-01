@@ -25,7 +25,8 @@ public class Projectile_Cake : MonoBehaviour
 
 
 
-            Destroy(gameObject, lifetime);
+        Instantiate(impactParticle, transform.position, transform.rotation);
+        Destroy(gameObject, lifetime);
     }
 
     void OnCollisionEnter(Collision other)
