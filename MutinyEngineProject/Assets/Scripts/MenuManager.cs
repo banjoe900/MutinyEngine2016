@@ -23,6 +23,8 @@ public class MenuManager : MonoBehaviour {
 	//public GameObject creditsPageHidden;
 	//public GameObject creditsPageVisible;
 
+	public MenuAudioController MAC;
+
     public GameObject[] playerIcons;
     public GameObject[] playerPos;
     public GameObject playerIcon;
@@ -64,7 +66,7 @@ public class MenuManager : MonoBehaviour {
 
             }
             if (Input.GetButtonDown("Submit")) {
-
+				MAC.PlayPositiveSound();
                 StartGame();
             }
         }
@@ -72,6 +74,7 @@ public class MenuManager : MonoBehaviour {
 
     public void TeamSelect() {
 
+		MAC.PlayPositiveSound();
         numPlayers = 0;
 
         //numPlayers = Input.GetJoystickNames().Length;
@@ -102,7 +105,8 @@ public class MenuManager : MonoBehaviour {
 	}*/
 
     public void MainMenu() {
-
+		
+		MAC.PlayNegativeSound();
         playButton.Select();
         mainMenu.SetActive(true);
         teamSelect.SetActive(false);
@@ -114,6 +118,7 @@ public class MenuManager : MonoBehaviour {
     public void StartGame() {
 
         if (ValidStart()) {
+			MAC.PlayPositiveSound();
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
             Debug.Log("LOAD LEVEL");
         }

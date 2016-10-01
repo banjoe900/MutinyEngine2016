@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MenuPlayer : MonoBehaviour {
 
-
+	MenuAudioController MAC;
 
     public GameObject icon;
     public GameObject ready;
@@ -22,7 +22,7 @@ public class MenuPlayer : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+		MAC = FindObjectOfType<MenuAudioController>();
         horizontalAxis = string.Format("P{0} Horizontal", playerNumber);
         playerReadyButton = string.Format("P{0} Attack", playerNumber);
     }
@@ -49,6 +49,7 @@ public class MenuPlayer : MonoBehaviour {
                     }
                     else if (currentState == 0 && MenuManager.instance.tealTeam < 2) {
                         //don't minus from team
+						MAC.PlayNegativeSound();
                     }
                     else {
                         currentState = 0;
@@ -71,6 +72,7 @@ public class MenuPlayer : MonoBehaviour {
                     }
                     else if (currentState == 0 && MenuManager.instance.orangeTeam < 2) {
                         //don't minus from team
+						MAC.PlayNegativeSound();
                     }
                     else {
                         currentState = 0;
@@ -86,6 +88,7 @@ public class MenuPlayer : MonoBehaviour {
             if (Input.GetButtonDown(playerReadyButton)) {
                 Debug.Log(playerReadyButton);
                 if (currentState != 0) {
+					MAC.PlayPositiveSound();
                     ready = Instantiate(ready, this.transform.position, Quaternion.identity) as GameObject;
                     ready.transform.SetParent(this.transform);
                     playerReady = true;
