@@ -10,12 +10,12 @@ public class RoundManager : MonoBehaviour {
     private List<int> orangeTeam;
 
     //private Vector3[] startingPositions = {new Vector3(-3, -13, 21), new Vector3(9, -13, 21), new Vector3(8, -13, 13), new Vector3(-1, -13, 13)};
-    private Vector3[] blueStartingPositions = { new Vector3(7 ,1, 5), new Vector3(7, 1, -6), };
-    private Vector3[] orangeStartingPositions = { new Vector3(-6, 1, -6), new Vector3(-6, 1, 6) };
+    private Vector3[] blueStartingPositions = { new Vector3(7 ,1, 0), new Vector3(7, 1, -6), };
+    private Vector3[] orangeStartingPositions = { new Vector3(-6, 1, -6), new Vector3(-6, 1, 0) };
     private Vector3[] uiOrangePlayersPositions = {new Vector3(-820, -400, 0), new Vector3(-500, -400, 0)};
     private Vector3[] uiBluePlayersPositions = {new Vector3(490, -400, 0), new Vector3(810, -400, 0)};
 
-    public int numberOfRounds = 5;
+    public int numberOfRounds = 3;
     private int currentRound;
     private int blueWins;
     private int orangeWins;
@@ -70,11 +70,16 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
-        if (currentRound != numberOfRounds && blueWins < 2 && orangeWins < 2) {
+        if (currentRound != numberOfRounds) {
+            currentRound++;
+            if (currentRound == numberOfRounds) {
+                GameObject.Find("music").GetComponent<AudioSource>().enabled = false;
+                GameObject.Find("lastRoundMusic").GetComponent<AudioSource>().enabled = true;
+            }
 			
             orangeDeaths = 0;
             blueDeaths = 0;
-            currentRound++;
+            
             uiManager.changeRoundNumber(currentRound);
             //change ui depending on what team won
             if (winningTeam == "blue") {
