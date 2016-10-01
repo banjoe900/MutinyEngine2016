@@ -8,6 +8,7 @@ public class Player_Projectiles : MonoBehaviour
     public Transform ProjectileSpawn;
     public Transform ProjectileSpawnLeft;
     public Transform ProjectileSpawnRight;
+    public int Player_Ammo;
     private bool canPickup = false;
     private bool Projectile_triple = false;
 
@@ -19,6 +20,7 @@ public class Player_Projectiles : MonoBehaviour
     {
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
         submit = string.Format("P{0} Attack", playerNumber);
+        Player_Ammo = 0;
     }
 
     // Update is called once per frame
@@ -40,17 +42,19 @@ public class Player_Projectiles : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))&&(Player_Ammo > 0))
             {
                 if (Projectile_triple == true)
                 {
                     Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
                     Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
+                    Player_Ammo = Player_Ammo - 3;
                 }
                 else
                 {
                     Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 1;
                 }
                 
             }
@@ -63,6 +67,7 @@ public class Player_Projectiles : MonoBehaviour
             Debug.Log("stall");
             canPickup = true;
             potentialPickup = other.GetComponentInParent<Stall>().bakedGood;
+            Player_Ammo = other.GetComponentInParent<Stall>().bakedGood_Ammo;
         }
         if (other.gameObject.tag == "Cake_Powerup")
         {
