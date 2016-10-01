@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: c087ba43b64ac9f46b7d650a6a6af267
-timeCreated: 1475331807
-=======
-guid: 3caeced14a7912f4f8ab4ab58976aa98
-timeCreated: 1475331378
->>>>>>> 16db600bf02b233da79d74f9bc7058d6438dca0e
-licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -22,6 +15,7 @@ ModelImporter:
     3300002: Circle.001
     4300000: Circle.001
     4300002: Circle
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -46,7 +40,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -80,7 +74,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
