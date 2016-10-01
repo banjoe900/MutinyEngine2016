@@ -1,63 +1,62 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
 
-	public static MenuManager _instance;
-	public static MenuManager instance
-	{
-		get
-		{
-			if(_instance == null)
-			{
-				_instance = GameObject.FindObjectOfType<MenuManager>();
-			}
-			return _instance;
-			
-		}
-	}
+    public static MenuManager _instance;
+    public static MenuManager instance {
+        get {
+            if (_instance == null) {
+                _instance = GameObject.FindObjectOfType<MenuManager>();
+            }
+            return _instance;
+
+        }
+    }
 
 
-	public GameObject mainMenu;
-	public GameObject teamSelect;
-	public GameObject[] playerIcons;
-	public GameObject[] playerPos;
-	public GameObject playerIcon;
-	public Button playButton;
-	int numPlayers = 0;
-	public int orangeTeam = 0;
-	public int tealTeam = 0;
+    public GameObject mainMenu;
+    public GameObject teamSelect;
+    public GameObject[] playerIcons;
+    public GameObject[] playerPos;
+    public GameObject playerIcon;
+    public Button playButton;
+    int numPlayers = 0;
+    public int orangeTeam = 0;
+    public int tealTeam = 0;
 
-	bool teamScreen = false;
+    bool teamScreen = false;
 
-
-	// Use this for initialization
-	void Start () {
-	
+    public List<int> blueTeamMembers = new List<int>();
+    public List<int> orangeTeamMembers = new List<int>();
 
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start() {
 
-		if(teamScreen){
 
-			if (Input.GetButtonDown("Cancel")){
-				foreach (GameObject icon in playerIcons)
-				{
-					Destroy(icon);
-				}
-				orangeTeam = 0;
-				tealTeam= 0;
-				MainMenu();
 
-			}
-			if(Input.GetButtonDown("Submit")){
+    }
 
-				/*foreach (GameObject icon in playerIcons)
+    // Update is called once per frame
+    void Update() {
+
+        if (teamScreen) {
+
+            if (Input.GetButtonDown("Cancel")) {
+                foreach (GameObject icon in playerIcons) {
+                    Destroy(icon);
+                }
+                orangeTeam = 0;
+                tealTeam = 0;
+                MainMenu();
+
+            }
+            if (Input.GetButtonDown("Submit")) {
+
+                /*foreach (GameObject icon in playerIcons)
 				{
 					ADD PLAYERS TO GAME MANAGER TEAM ARRAYS
 					if (icon.GetComponent<MenuPlayer>().isOrange){
@@ -65,80 +64,77 @@ public class MenuManager : MonoBehaviour {
 					}
 				}*/
 
-				StartGame();
-			}
-		} 
-	}
+                StartGame();
+            }
+        }
+    }
 
-	public void TeamSelect(){
+    public void TeamSelect() {
 
-		numPlayers = 0;
+        numPlayers = 0;
 
-		//numPlayers = Input.GetJoystickNames().Length;
-		foreach (string joystick in Input.GetJoystickNames())
-		{
-			if(joystick != "")
-			{
-				numPlayers += 1;
-			}
-		}
-		Debug.Log(numPlayers);
+        //numPlayers = Input.GetJoystickNames().Length;
+        foreach (string joystick in Input.GetJoystickNames()) {
+            if (joystick != "") {
+                numPlayers += 1;
+            }
+        }
+        Debug.Log(numPlayers);
 
-		playerIcons = new GameObject[numPlayers];
+        playerIcons = new GameObject[numPlayers];
 
-		teamSelect.SetActive(true);
-		mainMenu.SetActive(false);
+        teamSelect.SetActive(true);
+        mainMenu.SetActive(false);
 
-		SpawnPlayers();
+        SpawnPlayers();
 
-		teamScreen = true;
+        teamScreen = true;
 
-	}
+    }
 
-	public void MainMenu(){
-		
-		playButton.Select();
-		mainMenu.SetActive(true);
-		teamSelect.SetActive(false);
-		teamScreen = false;
+    public void MainMenu() {
 
-	}
+        playButton.Select();
+        mainMenu.SetActive(true);
+        teamSelect.SetActive(false);
+        teamScreen = false;
+
+    }
 
 
-	public void StartGame(){
+    public void StartGame() {
 
-		if (ValidStart()){
-			//SceneManager.LoadScene("bake sale");
-			Debug.Log("LOAD LEVEL");
-		}
+        if (ValidStart()) {
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
+            Debug.Log("LOAD LEVEL");
+        }
 
 
-	}
+    }
 
-	bool ValidStart(){
+    bool ValidStart() {
 
-		foreach (GameObject icon in playerIcons){
+        foreach (GameObject icon in playerIcons) {
 
-			if (!icon.GetComponent<MenuPlayer>().playerReady){
-				return false;
-			}
-			if(tealTeam == 0 || orangeTeam == 0)
-			{
-				return false;
-			}
-		}
+            if (!icon.GetComponent<MenuPlayer>().playerReady) {
+                return false;
+            }
+            if (tealTeam == 0 || orangeTeam == 0) {
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	void SpawnPlayers(){
+    void SpawnPlayers() {
 
-		for (int i = 0; i < playerIcons.Length; i++){
+        for (int i = 0; i < playerIcons.Length; i++) {
 
-			GameObject newPlayer = Instantiate(playerIcon, playerPos[i].transform.position, Quaternion.identity) as GameObject;
-			newPlayer.transform.SetParent(teamSelect.transform);
-			newPlayer.GetComponent<MenuPlayer>().playerNumber = i+1;
-			playerIcons[i] = newPlayer;
-		}
-	}	
+            GameObject newPlayer = Instantiate(playerIcon, playerPos[i].transform.position, Quaternion.identity) as GameObject;
+            newPlayer.transform.SetParent(teamSelect.transform);
+            newPlayer.GetComponent<MenuPlayer>().playerNumber = i + 1;
+            playerIcons[i] = newPlayer;
+        }
+    }
 }
