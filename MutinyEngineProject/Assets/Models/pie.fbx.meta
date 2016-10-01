@@ -1,29 +1,15 @@
 fileFormatVersion: 2
-guid: 0ea8359175b5c8d48afc632bfea59311
-timeCreated: 1475236046
+guid: 14668f832318b26498c9c092b2c2cc3c
+timeCreated: 1475311006
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cube
-    100002: Cube_001
-    100004: Cylinder
-    100006: //RootNode
-    400000: Cube
-    400002: Cube_001
-    400004: Cylinder
-    400006: //RootNode
-    2300000: Cube
-    2300002: Cube_001
-    2300004: Cylinder
-    3300000: Cube
-    3300002: Cube_001
-    3300004: Cylinder
-    4300000: Cube_001
-    4300002: Cube
-    4300004: Cylinder
-    7400000: Default Take
-    9500000: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: pie_low
   materials:
     importMaterials: 1
     materialName: 0
@@ -82,7 +68,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
