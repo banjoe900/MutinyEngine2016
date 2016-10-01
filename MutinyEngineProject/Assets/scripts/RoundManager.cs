@@ -15,7 +15,7 @@ public class RoundManager : MonoBehaviour {
     private Vector3[] uiOrangePlayersPositions = {new Vector3(-820, -400, 0), new Vector3(-500, -400, 0)};
     private Vector3[] uiBluePlayersPositions = {new Vector3(490, -400, 0), new Vector3(810, -400, 0)};
 
-    public int numberOfRounds = 3;
+    public int numberOfRounds = 5;
     private int currentRound;
     private int blueWins;
     private int orangeWins;
@@ -70,8 +70,23 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
+        if (winningTeam == "blue") {
+
+            blueWins++;
+            uiManager.changeBlueWins(blueWins);
+        }
+        else if (winningTeam == "orange") {
+
+            orangeWins++;
+            uiManager.changeOrangeWins(orangeWins);
+        }
+        else {
+            Debug.Log("hey stupid, the teams are blue and orange");
+        }
         if (currentRound != numberOfRounds) {
+           
             currentRound++;
+            uiManager.changeRoundNumber(currentRound);
             if (currentRound == numberOfRounds) {
                 GameObject.Find("music").GetComponent<AudioSource>().enabled = false;
                 GameObject.Find("lastRoundMusic").GetComponent<AudioSource>().enabled = true;
@@ -79,22 +94,8 @@ public class RoundManager : MonoBehaviour {
 			
             orangeDeaths = 0;
             blueDeaths = 0;
-            
-            uiManager.changeRoundNumber(currentRound);
-            //change ui depending on what team won
-            if (winningTeam == "blue") {
-				
-                blueWins++;
-                uiManager.changeBlueWins(blueWins);
-            }
-            else if (winningTeam == "orange") {
-				
-                orangeWins++;
-                uiManager.changeOrangeWins(orangeWins);
-            }
-            else {
-                Debug.Log("hey stupid, the teams are blue and orange");
-            }
+
+            resetPlayerPositions();
 
 			//Reset the players
             resetPlayersSugarLevel();
