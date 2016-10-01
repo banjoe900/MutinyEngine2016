@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player_Projectiles : MonoBehaviour
 {
+    PlayerMovement playerMovement;
     public GameObject projectile;
     public string projectileName;
     private Stall currentStall;
@@ -10,6 +11,8 @@ public class Player_Projectiles : MonoBehaviour
     public Transform ProjectileSpawnLeft;
     public Transform ProjectileSpawnRight;
     private bool canPickup = false;
+
+    public enum ProjectileWeightClass { Other, Big, Small };
 
     public int Player_Ammo;
     public bool Projectile_triple;
@@ -40,7 +43,9 @@ public class Player_Projectiles : MonoBehaviour
         //heldCake.SetActive(false);
         //heldCookie.SetActive(false);
         //heldCroissant.SetActive(false);
-        playerNumber = GetComponent<PlayerMovement>().playerNumber;
+        playerMovement = GetComponent<PlayerMovement>();
+        playerNumber = playerMovement.playerNumber;
+
         submit = string.Format("P{0} Attack", playerNumber);
 
 
@@ -129,30 +134,32 @@ public class Player_Projectiles : MonoBehaviour
         {
             if (projectileName == "Cakes")
             {
+                playerMovement.animator.SetTrigger("BigThrow");
                 if (Projectile_triple == true)
-                { index = Random.Range(0, Cakes.Length);
-                    Cakes_Projectile = Cakes[index];
-                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                {
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3; }
+                    index = Random.Range(0, Cakes.Length);
+                    Cakes_Projectile = Cakes[index];
+                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 3;
+                }
                 else
-<<<<<<< Updated upstream
-                { 
-=======
-                { Debug.Log(Cakes.Length);
->>>>>>> Stashed changes
+                {
+                    Debug.Log(Cakes.Length);
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 1; }
+                    Player_Ammo = Player_Ammo - 1;
+                }
             }
             if (projectileName == "Croissants")
             {
+                playerMovement.animator.SetTrigger("SmallThrow");
                 if (Projectile_triple == true)
                 {
                     index = Random.Range(0, Croissants.Length);
@@ -176,6 +183,7 @@ public class Player_Projectiles : MonoBehaviour
             }
             if (projectileName == "Cookies")
             {
+                playerMovement.animator.SetTrigger("SmallThrow");
                 if (Projectile_triple == true)
                 {
                     index = Random.Range(0, Cookies.Length);
@@ -199,6 +207,7 @@ public class Player_Projectiles : MonoBehaviour
             }
             if (projectileName == "Pies")
             {
+                playerMovement.animator.SetTrigger("BigThrow");
                 if (Projectile_triple == true)
                 {
                     index = Random.Range(0, Pies.Length);

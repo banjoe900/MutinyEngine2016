@@ -46,17 +46,26 @@ public class PlayerBehavior : MonoBehaviour {
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
     }	
 
-    public void AddSugar(float damage)
+    public void AddSugar(float damage, Player_Projectiles.ProjectileWeightClass weight = Player_Projectiles.ProjectileWeightClass.Other)
     {
         sugarLevel += damage;
         updateUi();
         if (sugarLevel >= sugarLimit)
         {
             sugarLevel = sugarLimit;
-            IsAlive = false;
-            
+            IsAlive = false;            
         }
 
+        switch (weight)
+        {
+            case Player_Projectiles.ProjectileWeightClass.Big:
+                playerMovement.animator.SetTrigger("BigHit");
+                break;
+
+            case Player_Projectiles.ProjectileWeightClass.Small:
+                playerMovement.animator.SetTrigger("SmallHit");
+                break;
+        }
     }
 
     void Death()
