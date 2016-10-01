@@ -6,7 +6,9 @@ public class CharacterAudioManager : MonoBehaviour {
     public AudioSourceManager lightFootsteps;
     public AudioSourceManager heavyFootsteps;
     public AudioSourceManager impact;
-    public AudioSourceManager throwing;
+    public AudioSourceManager throwCookie;
+    public AudioSourceManager throwCake;
+    public AudioSourceManager throwCroissant;
     public AudioSourceManager pickup;
     public AudioSourceManager death;
     public SpeechAudioSourceManager speech;
@@ -16,21 +18,34 @@ public class CharacterAudioManager : MonoBehaviour {
         PlayRandomFromClips(impact);
     }
 
-    public void PlayThrowAudio()
+    public void PlayThrowCookieAudio()
     {
-        PlayRandomFromClips(throwing);
+        PlayRandomFromClips(throwCookie);
+    }
+
+    public void PlayThrowCakeAudio()
+    {
+        PlayRandomFromClips(throwCake);
+    }
+
+    public void PlayThrowCroissantAudio()
+    {
+        PlayRandomFromClips(throwCroissant);
     }
 
     public void PlayFootstepAudio()
     {
         var behavior = GetComponentInParent<PlayerBehavior>();
-        if(behavior.sugarLevel >= behavior.sugarLimit / 2)
+        if (behavior.IsAlive)
         {
-            PlayRandomFromClips(heavyFootsteps);
-        }
-        else
-        {
-            PlayRandomFromClips(lightFootsteps);
+            if (behavior.sugarLevel >= behavior.sugarLimit / 2)
+            {
+                PlayRandomFromClips(heavyFootsteps);
+            }
+            else
+            {
+                PlayRandomFromClips(lightFootsteps);
+            }
         }
     }
 

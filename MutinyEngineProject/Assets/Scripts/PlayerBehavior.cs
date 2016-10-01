@@ -13,6 +13,7 @@ public class PlayerBehavior : MonoBehaviour {
     public float sugarDecay = 4;
 
     private PlayerMovement playerMovement;
+    private CharacterAudioManager audioManager;
     public SkinnedMeshRenderer playerSkinMesh;
 
     private RoundManager roundManager;
@@ -43,6 +44,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        audioManager = GetComponentInChildren<CharacterAudioManager>();
         playerMovement = GetComponent<PlayerMovement>();
         roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
@@ -59,11 +61,17 @@ public class PlayerBehavior : MonoBehaviour {
     {
         sugarLevel += damage;
         sugarLevel = Mathf.Clamp(sugarLevel, 0, sugarLimit);
+        
         updateUi();
         if (sugarLevel >= sugarLimit)
         {
             sugarLevel = sugarLimit;
             IsAlive = false;            
+        }
+
+        if (damage > 0 && IsAlive)
+        {
+            audioManager.PlayTakeDamageAudio();
         }
 
         switch (weight)
@@ -84,6 +92,7 @@ public class PlayerBehavior : MonoBehaviour {
         //roundManager.killPlayer(playerMovement.playerNumber);
         this.enabled = false;
         this.transform.Rotate(new Vector3(90, 0, 0));
+        audioManager.PlayDeathAudio();
         if (playerMovement == null)
         {
             playerMovement = GetComponent<PlayerMovement>();
