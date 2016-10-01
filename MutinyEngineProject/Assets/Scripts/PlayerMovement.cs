@@ -55,16 +55,17 @@ public class PlayerMovement : MonoBehaviour
             float combinedInput = Mathf.Clamp(Mathf.Abs(xAxis) + Mathf.Abs(yAxis), 0, 1);
             animator.SetFloat("MovementSpeed", combinedInput);
 
-            //If axis has input then face towards axis
-            if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
+            //Regenerate health while walking
+            if(combinedInput > 0)
             {
-                transform.LookAt((Camera.main.transform.right * xAxis
-                    + Vector3.Cross(Camera.main.transform.right, Vector3.up) * yAxis)
-                    + transform.position, Vector3.up);
-
-                //And regenerate the fat lady's health
-                behavior.AddSugar(- (Time.deltaTime * behavior.sugarDecay));
+                behavior.AddSugar(-(Time.deltaTime * behavior.sugarDecay));
             }
+
+	        //If axis has input then face towards axis
+	        if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
+	            transform.LookAt((Camera.main.transform.right * xAxis
+	                + Vector3.Cross(Camera.main.transform.right, Vector3.up) * yAxis)
+	                + transform.position, Vector3.up);
 
 	        //Find angle of thumbstick
 	        if (xAxis != 0.0f || yAxis != 0.0f)
