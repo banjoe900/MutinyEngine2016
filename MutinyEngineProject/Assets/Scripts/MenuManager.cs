@@ -56,14 +56,6 @@ public class MenuManager : MonoBehaviour {
             }
             if (Input.GetButtonDown("Submit")) {
 
-                /*foreach (GameObject icon in playerIcons)
-				{
-					ADD PLAYERS TO GAME MANAGER TEAM ARRAYS
-					if (icon.GetComponent<MenuPlayer>().isOrange){
-							gameManager.orangeTeam.Add(player);
-					}
-				}*/
-
                 StartGame();
             }
         }

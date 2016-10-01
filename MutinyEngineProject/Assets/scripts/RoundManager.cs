@@ -95,14 +95,27 @@ public class RoundManager : MonoBehaviour {
             //now start the next round
             enablePlayerMovements();
         } else { //that was the last round pick the winner
-            if (blueWins > orangeWins) {
-                Debug.Log("blue wins");
-            } else {
-                Debug.Log("orangeWins");
-            }
+			if(blueWins > orangeWins){
+				DisableControls();
+				uiManager.blueWinScreen.SetActive(true);
+			} else {
+				DisableControls();
+				uiManager.orangeWinScreen.SetActive(true);
+			}
         }
-
     }
+
+	public void DisableControls(){
+		foreach (GameObject player in blueTeamPlayers)
+		{
+			player.GetComponent<PlayerMovement>().isEnabled = false;
+		}
+		foreach (GameObject player in orangeTeamPlayers)
+		{
+			player.GetComponent<PlayerMovement>().isEnabled = false;
+		}
+	}
+
 
     private void createPlayers() {
         //for loop for blue players

@@ -23,6 +23,18 @@ public class Player_Projectiles : MonoBehaviour
     public GameObject heldCake;
     public GameObject heldCookie;
     public GameObject heldCroissant;
+    public Material Red;
+    public Material Green;
+    public Material Blue;
+    public GameObject[] Cakes;
+    GameObject Cakes_Projectile;
+    public GameObject[] Croissants;
+    GameObject Croissants_Projectile;
+    public GameObject[] Cookies;
+    GameObject Cookies_Projectile;
+    public GameObject[] Pies;
+    GameObject Pies_Projectile;
+    int index;
 
 
     // Use this for initialization
@@ -33,9 +45,14 @@ public class Player_Projectiles : MonoBehaviour
         heldCroissant.SetActive(false);
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
         submit = string.Format("P{0} Attack", playerNumber);
+        
 
 
 
+    }
+    void Randomizer()
+    {
+        Random.Range(1, 3);
     }
 
     // Update is called once per frame
@@ -113,17 +130,94 @@ public class Player_Projectiles : MonoBehaviour
     {
         if (projectile != null)
         {
-            if (Projectile_triple == true)
+            if (projectileName == "Cakes")
             {
-                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
-                Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
-                Player_Ammo = Player_Ammo - 3;
+                if (Projectile_triple == true)
+                {   index = Random.Range(0, Cakes.Length);
+                    Cakes_Projectile = Cakes[index];
+                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Cakes.Length);
+                    Cakes_Projectile = Cakes[index];
+                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Cakes.Length);
+                    Cakes_Projectile = Cakes[index];
+                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 3;}
+                else
+                {   Debug.Log(Cakes.Length);
+                    index = Random.Range(0, Cakes.Length);
+                    Cakes_Projectile = Cakes[index];
+                    Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 1;}
+                   }
+            if (projectileName == "Croissants")
+            {
+                if (Projectile_triple == true)
+                {
+                    index = Random.Range(0, Croissants.Length);
+                    Croissants_Projectile = Croissants[index];
+                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Croissants.Length);
+                    Croissants_Projectile = Croissants[index];
+                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Croissants.Length);
+                    Croissants_Projectile = Croissants[index];
+                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 3;
+                }
+                else
+                {
+                    index = Random.Range(0, Croissants.Length);
+                    Croissants_Projectile = Croissants[index];
+                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 1;
+                }
             }
-            else
+            if (projectileName == "Cookies")
             {
-                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                Player_Ammo = Player_Ammo - 1;
+                if (Projectile_triple == true)
+                {
+                    index = Random.Range(0, Cookies.Length);
+                    Cookies_Projectile = Cookies[index];
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Cookies.Length);
+                    Cookies_Projectile = Cookies[index];
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Cookies.Length);
+                    Cookies_Projectile = Cookies[index];
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 3;
+                }
+                else
+                {
+                    index = Random.Range(0, Cookies.Length);
+                    Cookies_Projectile = Cookies[index];
+                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 1;
+                }
+            }
+            if (projectileName == "Pies")
+            {
+                if (Projectile_triple == true)
+                {
+                    index = Random.Range(0, Pies.Length);
+                    Pies_Projectile = Pies[index];
+                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Pies.Length);
+                    Pies_Projectile = Pies[index];
+                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    index = Random.Range(0, Pies.Length);
+                    Pies_Projectile = Pies[index];
+                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 3;
+                }
+                else
+                {
+                    index = Random.Range(0, Pies.Length);
+                    Pies_Projectile = Pies[index];
+                    Instantiate(Pies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Player_Ammo = Player_Ammo - 1;
+                }
             }
         }
         
@@ -164,4 +258,6 @@ public class Player_Projectiles : MonoBehaviour
 		return Player_Ammo;
 
 	}
+
+
 }
