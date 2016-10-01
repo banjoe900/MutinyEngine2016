@@ -12,6 +12,7 @@ public class Projectile_Cake : MonoBehaviour
     public GameObject impactParticle;
     public GameObject[] Smear_List;
     public GameObject Smear;
+    public Color smearColour;
     int index;
     
 
@@ -45,6 +46,7 @@ public class Projectile_Cake : MonoBehaviour
             cake.transform.up = other.contacts[0].normal;
             var rot = Quaternion.RotateTowards(cake.transform.rotation, Quaternion.LookRotation(rb.velocity.normalized), 360f);
             cake.transform.Rotate(new Vector3(0, rot.eulerAngles.y, 0));
+            cake.GetComponentInChildren<SpriteRenderer>().color = smearColour;
 
 
             Debug.Log("smear");
