@@ -11,6 +11,7 @@ public class UiManager : MonoBehaviour {
     public Text player3SugarLevelText;
     public Text player4SugarLevelText;
 
+
     // Use this for initialization
     void Start () {
         init();
