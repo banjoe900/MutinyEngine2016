@@ -16,7 +16,6 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-
     public GameObject mainMenu;
     public GameObject teamSelect;
     public GameObject[] playerIcons;
@@ -51,6 +50,7 @@ public class MenuManager : MonoBehaviour {
                 }
                 orangeTeam = 0;
                 tealTeam = 0;
+                numPlayers = 0;
                 MainMenu();
 
             }
