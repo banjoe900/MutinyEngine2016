@@ -8,6 +8,7 @@ public class Stall : MonoBehaviour {
     public int bakedGood_Ammo;
     public float pickUpCooldown;
     public float timer = 0;
+    public string goodsName;
 
 
     void Update()
@@ -27,7 +28,7 @@ public class Stall : MonoBehaviour {
             ammo = bakedGood_Ammo;
             timer = pickUpCooldown;
             return bakedGood;
-        }
+            }
         return null;
     }
 }

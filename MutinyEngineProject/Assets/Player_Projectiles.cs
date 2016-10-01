@@ -37,12 +37,12 @@ public class Player_Projectiles : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       // heldCake.SetActive(false);
+        //heldCake.SetActive(false);
         //heldCookie.SetActive(false);
-        heldCroissant.SetActive(false);
+        //heldCroissant.SetActive(false);
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
         submit = string.Format("P{0} Attack", playerNumber);
-        
+
 
 
 
@@ -55,7 +55,7 @@ public class Player_Projectiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (projectile == null){
+        if (projectile == null) {
             heldCookie.SetActive(false);
             heldCroissant.SetActive(false);
             heldCake.SetActive(false);
@@ -81,7 +81,7 @@ public class Player_Projectiles : MonoBehaviour
                 heldCake.SetActive(false);
             }
         }
-       
+
         if (canPickup)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(submit))
@@ -90,7 +90,7 @@ public class Player_Projectiles : MonoBehaviour
                 {
                     var tempAmmo = 0;
                     var tempProjectile = currentStall.GiveUpTheGoods(out tempAmmo);
-                    if(tempAmmo != 0 && tempProjectile != null)
+                    if (tempAmmo != 0 && tempProjectile != null)
                     {
                         projectile = tempProjectile;
                         Player_Ammo = tempAmmo;
@@ -108,7 +108,7 @@ public class Player_Projectiles : MonoBehaviour
         }
         else
         {
-            if ((Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))&&(Player_Ammo > 0))
+            if ((Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit))) && (Player_Ammo > 0))
             {
                 ShootProjectile();
             }
@@ -130,7 +130,7 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cakes")
             {
                 if (Projectile_triple == true)
-                {   index = Random.Range(0, Cakes.Length);
+                { index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     index = Random.Range(0, Cakes.Length);
@@ -139,14 +139,18 @@ public class Player_Projectiles : MonoBehaviour
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 3;}
+                    Player_Ammo = Player_Ammo - 3; }
                 else
+<<<<<<< Updated upstream
                 { 
+=======
+                { Debug.Log(Cakes.Length);
+>>>>>>> Stashed changes
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 1;}
-                   }
+                    Player_Ammo = Player_Ammo - 1; }
+            }
             if (projectileName == "Croissants")
             {
                 if (Projectile_triple == true)
@@ -217,8 +221,8 @@ public class Player_Projectiles : MonoBehaviour
                 }
             }
         }
-        
-        if(Player_Ammo <= 0)
+
+        if (Player_Ammo <= 0)
         {
             projectile = null;
         }
