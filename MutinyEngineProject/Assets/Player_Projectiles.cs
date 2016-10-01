@@ -36,6 +36,7 @@ public class Player_Projectiles : MonoBehaviour
     GameObject Pies_Projectile;
     int index;
 
+    private CharacterAudioManager audioManager;
 
     // Use this for initialization
     void Start()
@@ -45,6 +46,7 @@ public class Player_Projectiles : MonoBehaviour
         //heldCroissant.SetActive(false);
         playerMovement = GetComponent<PlayerMovement>();
         playerNumber = playerMovement.playerNumber;
+        audioManager = GetComponentInChildren<CharacterAudioManager>();
 
         submit = string.Format("P{0} Attack", playerNumber);
 
@@ -99,6 +101,7 @@ public class Player_Projectiles : MonoBehaviour
                     {
                         projectile = tempProjectile;
                         Player_Ammo = tempAmmo;
+                        audioManager.PlayPickupAudio();
                     }
                     else
                     {
@@ -135,16 +138,18 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cakes")
             {
                 playerMovement.animator.SetTrigger("BigThrow");
+                //Sound for cake
                     Debug.Log(Cakes.Length);
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                     Player_Ammo = Player_Ammo - 1;
-                
+
             }
             if (projectileName == "Croissants")
             {
                 playerMovement.animator.SetTrigger("SmallThrow");
+                audioManager.PlayThrowCroissantAudio();
                 if (Projectile_triple == true)
                 {   index = Random.Range(0, Croissants.Length);
                     Croissants_Projectile = Croissants[index];
@@ -155,6 +160,7 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cookies")
             {
                 playerMovement.animator.SetTrigger("SmallThrow");
+                audioManager.PlayThrowCookieAudio();
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
                     Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
@@ -169,6 +175,7 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Pies")
             {
                 playerMovement.animator.SetTrigger("BigThrow");
+                //Play pies audio
                 if (Projectile_triple == true)
                 {
                     index = Random.Range(0, Pies.Length);
