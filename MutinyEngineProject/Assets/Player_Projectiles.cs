@@ -5,13 +5,14 @@ public class Player_Projectiles : MonoBehaviour
 {
     public GameObject projectile;
     private Stall currentStall;
-    private float powTime;
     public Transform ProjectileSpawn;
     public Transform ProjectileSpawnLeft;
     public Transform ProjectileSpawnRight;
-    public int Player_Ammo;
     private bool canPickup = false;
-    private bool Projectile_triple = false;
+
+    public int Player_Ammo;
+    public bool Projectile_triple;
+    public float powTime;
 
     private float pickUpCooldown;
 
@@ -23,8 +24,8 @@ public class Player_Projectiles : MonoBehaviour
     {
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
         submit = string.Format("P{0} Attack", playerNumber);
-        Player_Ammo = 0;
-        powTime = 0;
+        
+        
     }
 
     // Update is called once per frame
