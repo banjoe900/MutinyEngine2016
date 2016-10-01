@@ -11,6 +11,10 @@ public class UiManager : MonoBehaviour {
     public Text player3SugarLevelText;
     public Text player4SugarLevelText;
 
+	public GameObject blueWinScreen;
+	public GameObject orangeWinScreen;
+
+
 
     // Use this for initialization
     void Start () {
@@ -23,7 +27,8 @@ public class UiManager : MonoBehaviour {
 	}
 
     private void init() {
-
+		blueWinScreen.SetActive(false);
+		orangeWinScreen.SetActive(false);
     }
 
     /// <summary>
