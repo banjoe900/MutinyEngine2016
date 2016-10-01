@@ -150,12 +150,10 @@ public class Player_Projectiles : MonoBehaviour
             {
                 playerMovement.animator.SetTrigger("SmallThrow");
                 audioManager.PlayThrowCroissantAudio();
-                if (Projectile_triple == true)
-                {   index = Random.Range(0, Croissants.Length);
-                    Croissants_Projectile = Croissants[index];
-                    Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 1;
-                }
+                index = Random.Range(0, Croissants.Length);
+                Croissants_Projectile = Croissants[index];
+                Instantiate(Croissants_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                Player_Ammo = Player_Ammo - 1;
             }
             if (projectileName == "Cookies")
             {
