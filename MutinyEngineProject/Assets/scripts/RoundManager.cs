@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class RoundManager : MonoBehaviour {
+    private List<int> blueTeam;
+    private List<int> orangeTeam;
+
+
     public int numberOfRounds = 5;
     private int currentRound;
     private int blueWins;
@@ -41,6 +46,10 @@ public class RoundManager : MonoBehaviour {
 	}
 
     private void init() {
+        blueTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().blueTeamMembers;
+        orangeTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().orangeTeamMembers;
+        SceneManager.UnloadScene(0);
+
         currentRound = 1;
         blueWins = 0;
         orangeWins = 0;
