@@ -70,7 +70,8 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
-        if (currentRound != numberOfRounds) {
+        if (currentRound != numberOfRounds && blueWins < 2 && orangeWins < 2) {
+			
             orangeDeaths = 0;
             blueDeaths = 0;
             currentRound++;
@@ -90,20 +91,18 @@ public class RoundManager : MonoBehaviour {
                 Debug.Log("hey stupid, the teams are blue and orange");
             }
 
-            resetPlayerPositions();
+			//Reset the players
             resetPlayersSugarLevel();
+
+			//Reset the screen
             resetUi();
-            
-            //remove any items players are holding
+
+			//Reset the level
             destroyAllProjectiles();
 
-            //reset stalls
-
-            //chose rules for next round
+			//Reset the default controls
             randomiseControllerOrientation();
-            //display mid round screen?
-            //now start the next round
-            enablePlayerMovements();
+		
         } else { //that was the last round pick the winner
 			if(blueWins > orangeWins){
 				DisableMovement();
@@ -130,6 +129,16 @@ public class RoundManager : MonoBehaviour {
 		}
 	}
 
+	public void EnableMovement(){
+		foreach (GameObject player in blueTeamPlayers)
+		{
+			player.GetComponent<PlayerMovement>().isEnabled = true;;
+		}
+		foreach (GameObject player in orangeTeamPlayers)
+		{
+			player.GetComponent<PlayerMovement>().isEnabled = true;;
+		}
+	}
 
     private void createPlayers() {
         //for loop for blue players
@@ -231,18 +240,6 @@ public class RoundManager : MonoBehaviour {
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("projectile");
         for (int i = 0; i < projectiles.Length; i++) {
             Destroy(projectiles[i]);
-        }
-    }
-
-    /// <summary>
-    /// enables the movement of all players
-    /// </summary>
-    private void enablePlayerMovements() {
-        for (int i = 0; i < blueTeamPlayers.Count; i++) {
-            blueTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
-        }
-        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
-            orangeTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
         }
     }
 
