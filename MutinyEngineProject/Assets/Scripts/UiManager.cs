@@ -27,6 +27,7 @@ public class UiManager : MonoBehaviour {
 	}
 
     private void init() {
+        if (blueWinScreen == null || orangeWinScreen == null) return;
 		blueWinScreen.SetActive(false);
 		orangeWinScreen.SetActive(false);
     }

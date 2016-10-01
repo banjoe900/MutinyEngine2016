@@ -10,7 +10,8 @@ public class RoundManager : MonoBehaviour {
     private List<int> orangeTeam;
 
     //private Vector3[] startingPositions = {new Vector3(-3, -13, 21), new Vector3(9, -13, 21), new Vector3(8, -13, 13), new Vector3(-1, -13, 13)};
-    private Vector3[] startingPositions = { new Vector3(20 ,1, 0), new Vector3(15, 1, 0), new Vector3(10, 1, 0), new Vector3(5, 1, 0)};
+    private Vector3[] blueStartingPositions = { new Vector3(7 ,1, 5), new Vector3(7, 1, -6), };
+    private Vector3[] orangeStartingPositions = { new Vector3(-6, 1, -6), new Vector3(-6, 1, 6) };
     private Vector3[] uiOrangePlayersPositions = {new Vector3(-820, -400, 0), new Vector3(-500, -400, 0)};
     private Vector3[] uiBluePlayersPositions = {new Vector3(490, -400, 0), new Vector3(810, -400, 0)};
 
@@ -24,26 +25,10 @@ public class RoundManager : MonoBehaviour {
     private List<GameObject> blueTeamPlayers = new List<GameObject>();
     private List<GameObject> orangeTeamPlayers = new List<GameObject>();
 
-    //team 1
-    public GameObject player1;
-    private Vector3 player1StartingPosition;
-    private bool player1Alive;
-
-    public GameObject player2;
-    private bool player2Alive;
-    private Vector3 player2StartingPosition;
-
-    //team 2
-    public GameObject player3;
-    private bool player3Alive;
-    private Vector3 player3StartingPosition;
-
-    public GameObject player4;
-    private bool player4Alive;
-    private Vector3 player4StartingPosition;
-
-
     private UiManager uiManager;
+
+    private int blueDeaths;
+    private int orangeDeaths;
 
     // Use this for initialization
     void Start () {
@@ -65,9 +50,10 @@ public class RoundManager : MonoBehaviour {
         currentRound = 1;
         blueWins = 0;
         orangeWins = 0;
+        blueDeaths = 0;
+        orangeDeaths = 0;
 
         //setPlayersAlive();
-        //storeStartingPositions();
 
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
         uiManager.changeRoundNumber(currentRound);
@@ -77,6 +63,8 @@ public class RoundManager : MonoBehaviour {
 
     private void newRound(string winningTeam) {
         if (currentRound != numberOfRounds) {
+            orangeDeaths = 0;
+            blueDeaths = 0;
             currentRound++;
             uiManager.changeRoundNumber(currentRound);
             //change ui depending on what team won
@@ -92,8 +80,6 @@ public class RoundManager : MonoBehaviour {
                 Debug.Log("hey stupid, the teams are blue and orange");
             }
 
-
-            setPlayersAlive();
             resetPlayerPositions();
             resetPlayersSugarLevel();
             resetUi();
@@ -138,7 +124,7 @@ public class RoundManager : MonoBehaviour {
             newUi.transform.SetParent(GameObject.FindGameObjectWithTag("ui").transform);
             newUi.transform.localPosition = uiBluePlayersPositions[i];
 
-            GameObject newPlayer = Instantiate(playerPrefab, startingPositions[i], Quaternion.identity) as GameObject;
+            GameObject newPlayer = Instantiate(playerPrefab, blueStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
             newPlayer.GetComponent<PlayerMovement>().playerNumber = blueTeam[i];
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
@@ -157,7 +143,7 @@ public class RoundManager : MonoBehaviour {
             newUi.transform.SetParent(GameObject.FindGameObjectWithTag("ui").transform);
             newUi.transform.localPosition = uiOrangePlayersPositions[i];
 
-            GameObject newPlayer = Instantiate(playerPrefab, startingPositions[i], Quaternion.identity) as GameObject;
+            GameObject newPlayer = Instantiate(playerPrefab, orangeStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
             newPlayer.GetComponent<PlayerMovement>().playerNumber = orangeTeam[i];
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
@@ -174,74 +160,54 @@ public class RoundManager : MonoBehaviour {
     /// sends all the players back to their inital starting positions
     /// </summary>
     private void resetPlayerPositions() {
-        player1.transform.position = player1StartingPosition;
-        player2.transform.position = player2StartingPosition;
-        player3.transform.position = player3StartingPosition;
-        player4.transform.position = player4StartingPosition;
-        player1.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player2.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player3.transform.rotation = Quaternion.Euler(0, 0, 0);
-        player4.transform.rotation = Quaternion.Euler(0, 0, 0);
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            blueTeamPlayers[i].transform.position = blueStartingPositions[i];
+            blueTeamPlayers[i].transform.rotation = Quaternion.identity;
+        }
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            orangeTeamPlayers[i].transform.position = orangeStartingPositions[i];
+            orangeTeamPlayers[i].transform.rotation = Quaternion.identity;
+        }
 
-    }
-
-    /// <summary>
-    /// takes the initial positions of all the players so that they can be sent back there each time a new round starts
-    /// </summary>
-    private void storeStartingPositions() {
-        player1StartingPosition = player1.transform.position;
-        player2StartingPosition = player2.transform.position;
-        player3StartingPosition = player3.transform.position;
-        player4StartingPosition = player4.transform.position;
     }
 
     public void killPlayer(int playerNumber) {
-        switch(playerNumber) {
-            case 1:
-                player1Alive = false;
-                if (player2Alive == false) {
-                    newRound("orange");
-                }
-                break;
-            case 2:
-                player2Alive = false;
-                if (player1Alive == false) {
-                    newRound("orange");
-                }
-                break;
-            case 3:
-                player3Alive = false;
-                if (player4Alive == false) {
-                    newRound("blue");
-                }
-                break;
-            case 4:
-                player4Alive = false;
-                if (player3Alive == false) {
-                    newRound("blue");
-                }
-                break;
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            if (blueTeamPlayers[i].GetComponent<PlayerMovement>().playerNumber == playerNumber) {
+                blueDeaths++;
+                i = blueTeamPlayers.Count;
+            }
         }
-    }
 
-    /// <summary>
-    /// sets all the players to alive
-    /// </summary>
-    private void setPlayersAlive() {
-        player1Alive = true;
-        player2Alive = true;
-        player3Alive = true;
-        player4Alive = true;
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            if (orangeTeamPlayers[i].GetComponent<PlayerMovement>().playerNumber == playerNumber) {
+                orangeDeaths++;
+                i = orangeTeamPlayers.Count;
+            }
+        }
+
+
+        if (blueDeaths >= blueTeamPlayers.Count) {
+            newRound("orange");
+        } else if (orangeDeaths >= orangeTeamPlayers.Count) {
+            newRound("blue");
+        }
     }
 
     /// <summary>
     /// sets the sugar levels of all the players to 0
     /// </summary>
     private void resetPlayersSugarLevel() {
-        player1.GetComponent<PlayerBehavior>().sugarLevel = 0;
-        player2.GetComponent<PlayerBehavior>().sugarLevel = 0;
-        player3.GetComponent<PlayerBehavior>().sugarLevel = 0;
-        player4.GetComponent<PlayerBehavior>().sugarLevel = 0;
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            PlayerBehavior player = blueTeamPlayers[i].GetComponent<PlayerBehavior>();
+            player.sugarLevel = 0;
+            player.updateUi();
+        }
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            PlayerBehavior player = orangeTeamPlayers[i].GetComponent<PlayerBehavior>();
+            player.sugarLevel = 0;
+            player.updateUi();
+        }
     }
 
     /// <summary>
@@ -258,32 +224,38 @@ public class RoundManager : MonoBehaviour {
     /// enables the movement of all players
     /// </summary>
     private void enablePlayerMovements() {
-        player1.GetComponent<PlayerMovement>().isEnabled = true;
-        player2.GetComponent<PlayerMovement>().isEnabled = true;
-        player3.GetComponent<PlayerMovement>().isEnabled = true;
-        player4.GetComponent<PlayerMovement>().isEnabled = true;
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            blueTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
+        }
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            orangeTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
+        }
     }
 
     private void resetUi() {
-        player1.GetComponent<PlayerBehavior>().updateUi();
-        player2.GetComponent<PlayerBehavior>().updateUi();
-        player3.GetComponent<PlayerBehavior>().updateUi();
-        player4.GetComponent<PlayerBehavior>().updateUi();
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            blueTeamPlayers[i].GetComponent<PlayerBehavior>().updateUi();
+        }
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            orangeTeamPlayers[i].GetComponent<PlayerBehavior>().updateUi();
+        }
     }
     
     private void randomiseControllerOrientation()
     {
         int randomInt = Random.Range(0, 4);
-        if (randomInt == (int)player1.GetComponent<PlayerMovement>().currentOrientation)
+        if (randomInt == (int)blueTeamPlayers[0].GetComponent<PlayerMovement>().currentOrientation)
         {
             randomInt++;
             if (randomInt > 3) randomInt = 2;
         }
         PlayerMovement.ControllerOrientation orientation = (PlayerMovement.ControllerOrientation)randomInt;
-        player1.GetComponent<PlayerMovement>().currentOrientation = orientation;
-        player2.GetComponent<PlayerMovement>().currentOrientation = orientation;
-        player3.GetComponent<PlayerMovement>().currentOrientation = orientation;
-        player4.GetComponent<PlayerMovement>().currentOrientation = orientation;
+        for (int i = 0; i < blueTeamPlayers.Count; i++) {
+            blueTeamPlayers[i].GetComponent<PlayerMovement>().currentOrientation = orientation;
+        }
+        for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+            orangeTeamPlayers[i].GetComponent<PlayerMovement>().currentOrientation = orientation;
+        }
         controllerSpin = FindObjectOfType<ControllerSpin>();
         if(controllerSpin != null) controllerSpin.SetOrientation(orientation);
     }
