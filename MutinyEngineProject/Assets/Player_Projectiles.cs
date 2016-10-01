@@ -5,6 +5,7 @@ public class Player_Projectiles : MonoBehaviour
 {
     public GameObject projectile;
     private GameObject potentialPickup;
+    private float powTime;
     public Transform ProjectileSpawn;
     public Transform ProjectileSpawnLeft;
     public Transform ProjectileSpawnRight;
@@ -21,6 +22,7 @@ public class Player_Projectiles : MonoBehaviour
         playerNumber = GetComponent<PlayerMovement>().playerNumber;
         submit = string.Format("P{0} Attack", playerNumber);
         Player_Ammo = 0;
+        powTime = 0;
     }
 
     // Update is called once per frame
@@ -51,12 +53,22 @@ public class Player_Projectiles : MonoBehaviour
                         Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                         Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
                         Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
+                        Player_Ammo = Player_Ammo - 3;
                     }
                     else
                     {
                         Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                        Player_Ammo = Player_Ammo - 1;
                     }
                 }
+            }
+        }
+        if (Projectile_triple == true)
+        {
+            powTime -= Time.deltaTime;
+            if (powTime < 0)
+            {
+                Projectile_triple = false;
             }
         }
     }
@@ -73,6 +85,7 @@ public class Player_Projectiles : MonoBehaviour
         {
             Projectile_triple = true;
             Destroy(other.gameObject);
+            powTime = other.GetComponentInParent<Powerup_triple>().Powerup_time;
         }
     }
 

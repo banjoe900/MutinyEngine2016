@@ -47,9 +47,9 @@ public class Projectile_Cake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
-        transform.Rotate(Vector3.right * randRotRight / Time.deltaTime);
-        transform.Rotate(Vector3.forward * randRotForward / Time.deltaTime);
+        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
+        transform.Rotate(Vector3.right * randRotRight * Time.deltaTime);
+        transform.Rotate(Vector3.forward * randRotForward * Time.deltaTime);
     }
 
 
