@@ -31,7 +31,7 @@ public class Player_Projectiles : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    if(projectile != null) Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                 }
             }
         }
@@ -39,7 +39,7 @@ public class Player_Projectiles : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))
             {
-                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                if (projectile != null) Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
             }
         }
     }
