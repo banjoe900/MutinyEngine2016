@@ -36,11 +36,21 @@ public class Player_Projectiles : MonoBehaviour
             {
                 if (currentStall != null)
                 {
-                    currentStall.GiveUpTheGoods(projectile, Player_Ammo);
+                    var tempAmmo = 0;
+                    var tempProjectile = currentStall.GiveUpTheGoods(out tempAmmo);
+                    if(tempAmmo != 0 && tempProjectile != null)
+                    {
+                        projectile = tempProjectile;
+                        Player_Ammo = tempAmmo;
+                    }
+                    else
+                    {
+                        ShootProjectile();
+                    }
                 }
                 else
                 {
-                    if(projectile != null) Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    ShootProjectile();
                 }
             }
         }
@@ -48,21 +58,7 @@ public class Player_Projectiles : MonoBehaviour
         {
             if ((Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))&&(Player_Ammo > 0))
             {
-                if (projectile != null)
-                {
-                    if (Projectile_triple == true)
-                    {
-                        Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                        Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
-                        Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
-                        Player_Ammo = Player_Ammo - 3;
-                    }
-                    else
-                    {
-                        Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                        Player_Ammo = Player_Ammo - 1;
-                    }
-                }
+                ShootProjectile();
             }
         }
         if (Projectile_triple == true)
@@ -74,6 +70,31 @@ public class Player_Projectiles : MonoBehaviour
             }
         }
     }
+
+    void ShootProjectile()
+    {
+        if (projectile != null)
+        {
+            if (Projectile_triple == true)
+            {
+                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
+                Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
+                Player_Ammo = Player_Ammo - 3;
+            }
+            else
+            {
+                Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                Player_Ammo = Player_Ammo - 1;
+            }
+        }
+        
+        if(Player_Ammo <= 0)
+        {
+            projectile = null;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "StallTrigger")

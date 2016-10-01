@@ -16,13 +16,15 @@ public class Stall : MonoBehaviour {
         }
     }
 
-    public void GiveUpTheGoods(GameObject goods, int ammo)
+    public GameObject GiveUpTheGoods(out int ammo)
     {
+        ammo = 0;
         if(timer <= 0)
         {
-            goods = bakedGood;
             ammo = bakedGood_Ammo;
             timer = pickUpCooldown;
+            return bakedGood;
         }
+        return null;
     }
 }
