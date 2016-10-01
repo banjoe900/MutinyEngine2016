@@ -1,7 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerBehavior : MonoBehaviour {
+
+    public Text uiPlayerName;
+    public Text uiPlayerSugarLevel;
+    public Image uiPlayerPort;
     
     public float sugarLimit = 100;
     public float sugarLevel = 0;
@@ -72,19 +77,22 @@ public class PlayerBehavior : MonoBehaviour {
     }
 
     public void updateUi() {
-        switch(GetComponent<PlayerMovement>().playerNumber) {
-            case 1:
-                uiManager.changePlayer1SugarLevel(sugarLevel);
+        Start();
+        uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
+        uiPlayerSugarLevel.text = sugarLevel.ToString() + "%";
+    }
+
+    public void changePortColour(string colour) {
+        switch (colour) {
+            case "orange":
+                uiPlayerPort.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
                 break;
-            case 2:
-                uiManager.changePlayer2SugarLevel(sugarLevel);
+            case "blue":
+                uiPlayerPort.GetComponent<Image>().color = Color.blue;
                 break;
-            case 3:
-                uiManager.changePlayer3SugarLevel(sugarLevel);
-                break;           
-            case 4:
-                uiManager.changePlayer4SugarLevel(sugarLevel);
-                break; 
+            case "grey":
+
+                break;
         }
     }
 }

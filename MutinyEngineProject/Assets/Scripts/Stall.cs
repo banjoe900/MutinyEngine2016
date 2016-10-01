@@ -4,9 +4,11 @@ using System.Collections;
 public class Stall : MonoBehaviour {
 
     public GameObject bakedGood;
+    public string goodName;
     public int bakedGood_Ammo;
     public float pickUpCooldown;
     public float timer = 0;
+
 
     void Update()
     {

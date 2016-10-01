@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour {
+    public GameObject uiPrefab;
+    public GameObject playerPrefab;
     private List<int> blueTeam;
     private List<int> orangeTeam;
 
+    //private Vector3[] startingPositions = {new Vector3(-3, -13, 21), new Vector3(9, -13, 21), new Vector3(8, -13, 13), new Vector3(-1, -13, 13)};
+    private Vector3[] startingPositions = { new Vector3(20 ,1, 0), new Vector3(15, 1, 0), new Vector3(10, 1, 0), new Vector3(5, 1, 0)};
+    private Vector3[] uiOrangePlayersPositions = {new Vector3(-820, -400, 0), new Vector3(-500, -400, 0)};
+    private Vector3[] uiBluePlayersPositions = {new Vector3(490, -400, 0), new Vector3(810, -400, 0)};
 
     public int numberOfRounds = 5;
     private int currentRound;
@@ -13,6 +20,9 @@ public class RoundManager : MonoBehaviour {
     private int orangeWins;
 
     public ControllerSpin controllerSpin;
+
+    private List<GameObject> blueTeamPlayers = new List<GameObject>();
+    private List<GameObject> orangeTeamPlayers = new List<GameObject>();
 
     //team 1
     public GameObject player1;
@@ -50,12 +60,14 @@ public class RoundManager : MonoBehaviour {
         orangeTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().orangeTeamMembers;
         SceneManager.UnloadScene(0);
 
+        createPlayers();
+
         currentRound = 1;
         blueWins = 0;
         orangeWins = 0;
 
-        setPlayersAlive();
-        storeStartingPositions();
+        //setPlayersAlive();
+        //storeStartingPositions();
 
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
         uiManager.changeRoundNumber(currentRound);
@@ -101,6 +113,45 @@ public class RoundManager : MonoBehaviour {
         }
 
     }
+
+    private void createPlayers() {
+        //for loop for blue players
+        for (int i = 0; i < blueTeam.Count; i++) {
+            GameObject newUi = Instantiate(uiPrefab, new Vector3(0, 0, 0),  Camera.main.transform.rotation) as GameObject;
+            newUi.transform.SetParent(GameObject.FindGameObjectWithTag("ui").transform);
+            newUi.transform.localPosition = uiBluePlayersPositions[i];
+
+            GameObject newPlayer = Instantiate(playerPrefab, startingPositions[i], Quaternion.identity) as GameObject;
+            newPlayer.transform.SetParent(GameObject.Find("players").transform);
+            newPlayer.GetComponent<PlayerMovement>().playerNumber = blueTeam[i];
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            newPlayer.GetComponent<PlayerBehavior>().updateUi();
+            newPlayer.GetComponent<PlayerBehavior>().changePortColour("blue");
+
+            blueTeamPlayers.Add(newPlayer);
+
+
+        }
+        //for loop for orange players
+        for (int i = 0; i < orangeTeam.Count; i++) {
+            GameObject newUi = Instantiate(uiPrefab, new Vector3(0, 0, 0), Camera.main.transform.rotation) as GameObject;
+            newUi.transform.SetParent(GameObject.FindGameObjectWithTag("ui").transform);
+            newUi.transform.localPosition = uiOrangePlayersPositions[i];
+
+            GameObject newPlayer = Instantiate(playerPrefab, startingPositions[i], Quaternion.identity) as GameObject;
+            newPlayer.transform.SetParent(GameObject.Find("players").transform);
+            newPlayer.GetComponent<PlayerMovement>().playerNumber = orangeTeam[i];
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
+            newPlayer.GetComponent<PlayerBehavior>().uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            newPlayer.GetComponent<PlayerBehavior>().updateUi();
+            newPlayer.GetComponent<PlayerBehavior>().changePortColour("orange");
+            orangeTeamPlayers.Add(newPlayer);
+        }
+    }
+
 
     /// <summary>
     /// sends all the players back to their inital starting positions
