@@ -49,12 +49,8 @@ public class RoundManager : MonoBehaviour {
 	}
 
     private void init() {
-        GameObject menuManager = GameObject.FindGameObjectWithTag("menuManager");
-        if (menuManager != null)
-        {
-            blueTeam = menuManager.GetComponent<MenuManager>().blueTeamMembers;
-            orangeTeam = menuManager.GetComponent<MenuManager>().orangeTeamMembers;
-        }
+        blueTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().blueTeamMembers;
+        orangeTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().orangeTeamMembers;
         SceneManager.UnloadScene(0);
 
         createPlayers();
