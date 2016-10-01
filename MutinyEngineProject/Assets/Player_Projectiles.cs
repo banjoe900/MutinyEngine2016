@@ -4,7 +4,7 @@ using System.Collections;
 public class Player_Projectiles : MonoBehaviour
 {
     public GameObject projectile;
-    private GameObject potentialPickup;
+    private Stall currentStall;
     private float powTime;
     public Transform ProjectileSpawn;
     public Transform ProjectileSpawnLeft;
@@ -12,6 +12,8 @@ public class Player_Projectiles : MonoBehaviour
     public int Player_Ammo;
     private bool canPickup = false;
     private bool Projectile_triple = false;
+
+    private float pickUpCooldown;
 
     private int playerNumber;
     private string submit;
@@ -32,9 +34,9 @@ public class Player_Projectiles : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(submit))
             {
-                if (potentialPickup != projectile)
+                if (currentStall != null)
                 {
-                    projectile = potentialPickup;
+                    currentStall.GiveUpTheGoods(projectile, Player_Ammo);
                 }
                 else
                 {
@@ -78,8 +80,7 @@ public class Player_Projectiles : MonoBehaviour
         {
             Debug.Log("stall");
             canPickup = true;
-            potentialPickup = other.GetComponentInParent<Stall>().bakedGood;
-            Player_Ammo = other.GetComponentInParent<Stall>().bakedGood_Ammo;
+            currentStall = other.GetComponentInParent<Stall>();
         }
         if (other.gameObject.tag == "Cake_Powerup")
         {
@@ -94,6 +95,7 @@ public class Player_Projectiles : MonoBehaviour
         if (other.gameObject.tag == "StallTrigger")
         {
             canPickup = false;
+            currentStall = null;
         }
     }
 }
