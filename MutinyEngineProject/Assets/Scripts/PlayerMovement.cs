@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float yAxis = 0;
 
     public Animator animator;
+    private PlayerBehavior behavior;
 
     /// <summary>
     /// The current controller orientation of the player.
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         speed = initialSpeed;
         controller = GetComponent<CharacterController>();
+        behavior = GetComponent<PlayerBehavior>();
 
         //player axis
         horizontalAxis = string.Format("P{0} Horizontal", playerNumber);
@@ -48,15 +50,21 @@ public class PlayerMovement : MonoBehaviour
 		if (isEnabled) {
 
 	        GetAxis(currentOrientation);
-            
-            //Set movementspeed in animator
-            animator.SetFloat("MovementSpeed", Mathf.Abs(xAxis) + Mathf.Abs(yAxis));
 
-	        //If axis has input then face towards axis
-	        if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
-	            transform.LookAt((Camera.main.transform.right * xAxis
-	                + Vector3.Cross(Camera.main.transform.right, Vector3.up) * yAxis)
-	                + transform.position, Vector3.up);
+            //Set movementspeed in animator
+            float combinedInput = Mathf.Clamp(Mathf.Abs(xAxis) + Mathf.Abs(yAxis), 0, 1);
+            animator.SetFloat("MovementSpeed", combinedInput);
+
+            //If axis has input then face towards axis
+            if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
+            {
+                transform.LookAt((Camera.main.transform.right * xAxis
+                    + Vector3.Cross(Camera.main.transform.right, Vector3.up) * yAxis)
+                    + transform.position, Vector3.up);
+
+                //And regenerate the fat lady's health
+                behavior.AddSugar(- (Time.deltaTime * behavior.sugarDecay));
+            }
 
 	        //Find angle of thumbstick
 	        if (xAxis != 0.0f || yAxis != 0.0f)
