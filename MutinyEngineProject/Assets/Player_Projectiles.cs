@@ -163,13 +163,13 @@ public class Player_Projectiles : MonoBehaviour
                 audioManager.PlayThrowCookieAudio();
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
-                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position,  ProjectileSpawn.rotation);
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
-                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawnLeft.rotation);
                     index = Random.Range(0, Cookies.Length);
                     Cookies_Projectile = Cookies[index];
-                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    Instantiate(Cookies_Projectile, ProjectileSpawn.position, ProjectileSpawnRight.rotation);
                     Player_Ammo = Player_Ammo - 1;
                 }
             if (projectileName == "Pies")

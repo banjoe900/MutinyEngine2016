@@ -6,9 +6,6 @@ public class Projectile_Cake : MonoBehaviour
     public float damage;
     public float speed;
     public float lifetime;
-    private float randRotUp;
-    private float randRotRight;
-    private float randRotForward;
     public GameObject impactParticle;
     public GameObject[] Smear_List;
     public GameObject Smear;
@@ -22,12 +19,9 @@ public class Projectile_Cake : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        randRotUp = Random.Range(90f, 720f);
-        randRotRight = Random.Range(90f, 720f);
-        randRotForward = Random.Range(90f, 720f);
-
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
+        rb.AddTorque(transform.forward * speed);
 
 
 
@@ -36,8 +30,9 @@ public class Projectile_Cake : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-       // index = Random.Range(0, Smear_List.Length);
-       //Smear = Smear_List[index];
+        rb.AddForce(other.contacts[0].normal * speed/5);
+        // index = Random.Range(0, Smear_List.Length);
+        //Smear = Smear_List[index];
         if (other.gameObject.tag == "Obstacle")
         {
  
@@ -59,13 +54,6 @@ public class Projectile_Cake : MonoBehaviour
             other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
             Destroy(this.gameObject);
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
-        transform.Rotate(Vector3.right * randRotRight * Time.deltaTime);
-        transform.Rotate(Vector3.forward * randRotForward * Time.deltaTime);
     }
 
 
