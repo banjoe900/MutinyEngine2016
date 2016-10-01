@@ -37,7 +37,8 @@ public class ControllerSpin : MonoBehaviour {
         }
         if (shrink)
         {
-            img.rectTransform.localScale = Vector3.Lerp(img.rectTransform.localScale, Vector3.zero, Time.deltaTime * 4);
+			img.rectTransform.localScale = Vector3.Lerp(img.rectTransform.localScale, finalScale/2, Time.deltaTime * 8);
+			img.rectTransform.localPosition = Vector3.Lerp(img.rectTransform.anchoredPosition, img.rectTransform.anchoredPosition = new Vector3(-850, 400, 0), Time.deltaTime * 8); 
         }
     }
 
