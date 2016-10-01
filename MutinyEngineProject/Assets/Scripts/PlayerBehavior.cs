@@ -78,7 +78,7 @@ public class PlayerBehavior : MonoBehaviour {
 
     public void updateUi() {
         Start();
-        uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
+        //uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
         uiPlayerSugarLevel.text = sugarLevel.ToString() + "%";
     }
 
