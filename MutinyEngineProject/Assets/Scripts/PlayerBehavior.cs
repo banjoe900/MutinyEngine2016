@@ -44,11 +44,18 @@ public class PlayerBehavior : MonoBehaviour {
         playerMovement = GetComponent<PlayerMovement>();
         roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
-    }	
+    }
+
+    void Update()
+    {
+        float fattyFattyBoomBah = 1 - sugarLevel / sugarLimit / 2;
+        playerMovement.speed = playerMovement.initialSpeed * fattyFattyBoomBah;
+    }
 
     public void AddSugar(float damage, Player_Projectiles.ProjectileWeightClass weight = Player_Projectiles.ProjectileWeightClass.Other)
     {
         sugarLevel += damage;
+        Mathf.Clamp(sugarLevel, 0, sugarLimit);
         updateUi();
         if (sugarLevel >= sugarLimit)
         {

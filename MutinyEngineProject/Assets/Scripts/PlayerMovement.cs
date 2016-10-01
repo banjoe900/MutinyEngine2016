@@ -23,15 +23,17 @@ public class PlayerMovement : MonoBehaviour
 
     [Range(1, 4)]
     public int playerNumber = 1;
+    public float initialSpeed = 6.0f;
+    [HideInInspector]
     public float speed = 6.0F;
     public float leftThumbstickAngle = 0;
-    public float jumpSpeed = 8.0F;
     public string horizontalAxis, verticalAxis;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
 
     void Start()
     {
+        speed = initialSpeed;
         controller = GetComponent<CharacterController>();
 
         //player axis
