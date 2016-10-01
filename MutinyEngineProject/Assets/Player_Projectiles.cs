@@ -119,4 +119,10 @@ public class Player_Projectiles : MonoBehaviour
             currentStall = null;
         }
     }
+
+	public int GetPlayerAmmo(){
+
+		return Player_Ammo;
+
+	}
 }
