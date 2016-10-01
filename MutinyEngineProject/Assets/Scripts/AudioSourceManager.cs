@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof (AudioSource))]
 public class AudioSourceManager : MonoBehaviour
 {    
-    public enum Type { Impact, Death, Throw, Pickup };
+    public enum Type { Footsteps, Impact, Death, Throw, Pickup };
     public Type type;
     public AudioSource source;
     public AudioClip[] audioClips;

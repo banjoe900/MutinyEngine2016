@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class CharacterAudioManager : MonoBehaviour {
-    
+
+    public AudioSourceManager footsteps;
     public AudioSourceManager impact;
     public AudioSourceManager throwing;
     public AudioSourceManager pickup;
@@ -17,6 +18,11 @@ public class CharacterAudioManager : MonoBehaviour {
     public void PlayThrowAudio()
     {
         PlayRandomFromClips(throwing);
+    }
+
+    public void PlayFootstepAudio()
+    {
+        PlayRandomFromClips(footsteps);
     }
 
     public void PlayPickupAudio()

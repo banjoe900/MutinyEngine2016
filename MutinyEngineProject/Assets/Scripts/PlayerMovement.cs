@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private float xAxis = 0;
     private float yAxis = 0;
+
+    public Animator animator;
+
     /// <summary>
     /// The current controller orientation of the player.
     /// </summary>
@@ -43,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
 		if (isEnabled) {
 
 	        GetAxis(currentOrientation);
+            
+            //Set movementspeed in animator
+            animator.SetFloat("MovementSpeed", Mathf.Abs(xAxis) + Mathf.Abs(yAxis));
 
 	        //If axis has input then face towards axis
 	        if (Input.GetAxisRaw(horizontalAxis) != 0 || Input.GetAxisRaw(verticalAxis) != 0)
@@ -65,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 	        //Feed moveDirection with input.
 	        moveDirection = new Vector3(xAxis, 0, yAxis).normalized;
 
-	        moveDirection *= speed;
+            moveDirection *= speed;
 
 	        moveDirection += Vector3.up * yVel;
 
