@@ -18,6 +18,11 @@ public class MenuManager : MonoBehaviour {
 
     public GameObject mainMenu;
     public GameObject teamSelect;
+
+	//public GameObject creditsPage;
+	//public GameObject creditsPageHidden;
+	//public GameObject creditsPageVisible;
+
     public GameObject[] playerIcons;
     public GameObject[] playerPos;
     public GameObject playerIcon;
@@ -87,6 +92,14 @@ public class MenuManager : MonoBehaviour {
         teamScreen = true;
 
     }
+
+	/*public void Credits(){
+
+		creditsPage.SetActive(true);
+		creditsPage.transform.localPosition = Vector3.Lerp(creditsPageHidden.transform.position, creditsPageVisible.transform.position, Time.deltaTime * 5);
+		creditsPage.transform.localScale = Vector3.Lerp(
+
+	}*/
 
     public void MainMenu() {
 
