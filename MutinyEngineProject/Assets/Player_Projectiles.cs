@@ -36,7 +36,7 @@ public class Player_Projectiles : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    if(projectile != null) Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
                 }
             }
         }
@@ -44,19 +44,19 @@ public class Player_Projectiles : MonoBehaviour
         {
             if ((Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetButtonDown(submit)))&&(Player_Ammo > 0))
             {
-                if (Projectile_triple == true)
+                if (projectile != null)
                 {
-                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
-                    Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
-                    Player_Ammo = Player_Ammo - 3;
+                    if (Projectile_triple == true)
+                    {
+                        Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                        Instantiate(projectile, ProjectileSpawnLeft.position, ProjectileSpawnLeft.rotation);
+                        Instantiate(projectile, ProjectileSpawnRight.position, ProjectileSpawnRight.rotation);
+                    }
+                    else
+                    {
+                        Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
+                    }
                 }
-                else
-                {
-                    Instantiate(projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
-                    Player_Ammo = Player_Ammo - 1;
-                }
-                
             }
         }
     }
