@@ -32,6 +32,8 @@ public class RoundManager : MonoBehaviour {
 
 	public bool winScreen = false;
 
+    private PieSpawner pieSpawner;
+
     // Use this for initialization
     void Start () {
         init();
@@ -52,16 +54,18 @@ public class RoundManager : MonoBehaviour {
         blueTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().blueTeamMembers;
         orangeTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().orangeTeamMembers;
         SceneManager.UnloadScene(0);
+        pieSpawner = FindObjectOfType<PieSpawner>();
 
         createPlayers();
+
+        pieSpawner.isEnabled = true;
+        pieSpawner.spawnRate = 12f;
 
         currentRound = 1;
         blueWins = 0;
         orangeWins = 0;
         blueDeaths = 0;
         orangeDeaths = 0;
-
-        //setPlayersAlive();
 
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
         uiManager.changeRoundNumber(currentRound);
@@ -83,8 +87,12 @@ public class RoundManager : MonoBehaviour {
         else {
             Debug.Log("hey stupid, the teams are blue and orange");
         }
+
+        pieSpawner.isEnabled = false;
+        pieSpawner.spawnRate -= 2f;
         if (currentRound != numberOfRounds) {
-           
+            
+
             currentRound++;
             uiManager.changeRoundNumber(currentRound);
             if (currentRound == numberOfRounds) {
@@ -108,7 +116,8 @@ public class RoundManager : MonoBehaviour {
 
 			//Reset the default controls
             randomiseControllerOrientation();
-		
+            pieSpawner.isEnabled = true;
+
         } else { //that was the last round pick the winner
 			if(blueWins > orangeWins){
 				DisableMovement();

@@ -40,7 +40,7 @@ public class PieSpawner : MonoBehaviour {
             }
             else
             {
-                Instantiate(piePrefab, new Vector3(Random.Range(minX.transform.position.x, maxX.transform.position.x), 50, Random.Range(minZ.transform.position.z, maxZ.transform.position.z)), piePrefab.transform.rotation);
+                Instantiate(piePrefab, new Vector3(Random.Range(minX.transform.position.x, maxX.transform.position.x), 20, Random.Range(minZ.transform.position.z, maxZ.transform.position.z)), piePrefab.transform.rotation);
                 timer = 0;
             }
         }
