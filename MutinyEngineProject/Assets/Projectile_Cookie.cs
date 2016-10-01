@@ -19,7 +19,7 @@ public class Projectile_Cookie : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
+        
         
         Destroy(gameObject, lifetime);
     }
@@ -30,6 +30,7 @@ public class Projectile_Cookie : MonoBehaviour
         {
 
             rb.velocity = Vector3.zero;
+            randRotUp = 0;
         }
         if (other.gameObject.tag == "Player")
         {
@@ -40,7 +41,7 @@ public class Projectile_Cookie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
     }
 
 

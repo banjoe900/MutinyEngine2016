@@ -24,9 +24,7 @@ public class Projectile_Cake : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-            transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
-            transform.Rotate(Vector3.right * randRotRight / Time.deltaTime);
-            transform.Rotate(Vector3.forward * randRotForward / Time.deltaTime);
+
 
             Destroy(gameObject, lifetime);
     }
@@ -47,7 +45,9 @@ public class Projectile_Cake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(Vector3.up * randRotUp / Time.deltaTime);
+        transform.Rotate(Vector3.right * randRotRight / Time.deltaTime);
+        transform.Rotate(Vector3.forward * randRotForward / Time.deltaTime);
     }
 
 

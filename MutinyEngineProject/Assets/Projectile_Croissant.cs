@@ -9,17 +9,17 @@ public class Projectile_Croissant: MonoBehaviour
     private float randRotUp;
 
     private Rigidbody rb;
-    public GameObject Cookie;
+    public GameObject Croissant;
 
     // Use this for initialization
     void Start()
     {
-        randRotUp = Random.Range(90f, 720f);
+        randRotUp = Random.Range(360f, 720f);
 
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
+        
 
         Destroy(gameObject, lifetime);
     }
@@ -40,6 +40,7 @@ public class Projectile_Croissant: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(Vector3.up * randRotUp * Time.deltaTime);
         rb.AddForce(transform.forward*( -300 * Time.deltaTime));
     }
 

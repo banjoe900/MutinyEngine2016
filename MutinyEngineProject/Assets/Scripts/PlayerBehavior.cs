@@ -37,7 +37,7 @@ public class PlayerBehavior : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerMovement = GetComponent<PlayerMovement>();
-        roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
+       // roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
     }	
 
