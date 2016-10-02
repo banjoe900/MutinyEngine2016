@@ -144,8 +144,8 @@ public class Player_Projectiles : MonoBehaviour
             if (projectileName == "Cakes")
             {
                 playerMovement.animator.SetTrigger("BigThrow");
-                //Sound for cake
-                    Debug.Log(Cakes.Length);
+                audioManager.PlayThrowCakeAudio();
+                Debug.Log(Cakes.Length);
                     index = Random.Range(0, Cakes.Length);
                     Cakes_Projectile = Cakes[index];
                     Instantiate(Cakes_Projectile, ProjectileSpawn.position, ProjectileSpawn.rotation);
