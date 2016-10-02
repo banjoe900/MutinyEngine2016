@@ -19,9 +19,8 @@ public class MenuManager : MonoBehaviour {
     public GameObject mainMenu;
     public GameObject teamSelect;
 
-	//public GameObject creditsPage;
-	//public GameObject creditsPageHidden;
-	//public GameObject creditsPageVisible;
+	public GameObject creditsPage;
+	public GameObject Instructions;
 
 	public MenuAudioController MAC;
 
@@ -32,10 +31,12 @@ public class MenuManager : MonoBehaviour {
     int numPlayers = 0;
     public int orangeTeam = 0;
     public int tealTeam = 0;
+	public int readiedPlayers;
 
 	public Sprite[] spriteArray = new Sprite[4];
 
     bool teamScreen = false;
+	bool creditScreen = false;
 
     public List<int> blueTeamMembers = new List<int>();
     public List<int> orangeTeamMembers = new List<int>();
@@ -66,14 +67,28 @@ public class MenuManager : MonoBehaviour {
                 numPlayers = 0;
 				blueTeamMembers.Clear();
 				orangeTeamMembers.Clear();
+				Instructions.SetActive(false);
                 MainMenu();
 
             }
-            if (Input.GetButtonDown("Submit")) {
-				MAC.PlayPositiveSound();
-                StartGame();
-            }
+			if (readiedPlayers == numPlayers)
+			{
+				Instructions.SetActive(true);
+				if (Input.GetButtonDown("Submit")) {
+					MAC.PlayPositiveSound();
+					StartGame();
+				}
+			}
+            
         }
+		if (creditScreen)
+		{
+			if (Input.GetButtonDown("Cancel")) {
+				creditScreen = false;
+				creditsPage.SetActive(false);
+				MainMenu();
+			}
+		}
     }
 
     public void TeamSelect() {
@@ -100,13 +115,11 @@ public class MenuManager : MonoBehaviour {
 
     }
 
-	/*public void Credits(){
+	public void Credits(){
 
 		creditsPage.SetActive(true);
-		creditsPage.transform.localPosition = Vector3.Lerp(creditsPageHidden.transform.position, creditsPageVisible.transform.position, Time.deltaTime * 5);
-		creditsPage.transform.localScale = Vector3.Lerp(
-
-	}*/
+		creditScreen = true;
+	}
 
     public void MainMenu() {
 		
@@ -160,4 +173,7 @@ public class MenuManager : MonoBehaviour {
 	public void QuitGame(){
 		Application.Quit();
 	}
+
+
+
 }
