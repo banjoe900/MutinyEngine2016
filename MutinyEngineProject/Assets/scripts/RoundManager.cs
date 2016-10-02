@@ -15,7 +15,7 @@ public class RoundManager : MonoBehaviour {
     private Vector3[] uiOrangePlayersPositions = {new Vector3(-820, -400, 0), new Vector3(-500, -400, 0)};
     private Vector3[] uiBluePlayersPositions = {new Vector3(490, -400, 0), new Vector3(810, -400, 0)};
 
-    public int numberOfRounds = 3;
+    public int numberOfRounds = 5;
     private int currentRound;
     private int blueWins;
     private int orangeWins;
@@ -31,6 +31,8 @@ public class RoundManager : MonoBehaviour {
     private int orangeDeaths;
 
 	public bool winScreen = false;
+
+    private PieSpawner pieSpawner;
 
     // Use this for initialization
     void Start () {
@@ -52,16 +54,18 @@ public class RoundManager : MonoBehaviour {
         blueTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().blueTeamMembers;
         orangeTeam = GameObject.FindGameObjectWithTag("menuManager").GetComponent<MenuManager>().orangeTeamMembers;
         SceneManager.UnloadScene(0);
+        pieSpawner = FindObjectOfType<PieSpawner>();
 
         createPlayers();
+
+        pieSpawner.isEnabled = true;
+        pieSpawner.spawnRate = 12f;
 
         currentRound = 1;
         blueWins = 0;
         orangeWins = 0;
         blueDeaths = 0;
         orangeDeaths = 0;
-
-        //setPlayersAlive();
 
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
         uiManager.changeRoundNumber(currentRound);
@@ -70,8 +74,27 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
+        if (winningTeam == "blue") {
+
+            blueWins++;
+            uiManager.changeBlueWins(blueWins);
+        }
+        else if (winningTeam == "orange") {
+
+            orangeWins++;
+            uiManager.changeOrangeWins(orangeWins);
+        }
+        else {
+            Debug.Log("hey stupid, the teams are blue and orange");
+        }
+
+        pieSpawner.isEnabled = false;
+        pieSpawner.spawnRate -= 2f;
         if (currentRound != numberOfRounds) {
+            
+
             currentRound++;
+            uiManager.changeRoundNumber(currentRound);
             if (currentRound == numberOfRounds) {
                 GameObject.Find("music").GetComponent<AudioSource>().enabled = false;
                 GameObject.Find("lastRoundMusic").GetComponent<AudioSource>().enabled = true;
@@ -79,22 +102,8 @@ public class RoundManager : MonoBehaviour {
 			
             orangeDeaths = 0;
             blueDeaths = 0;
-            
-            uiManager.changeRoundNumber(currentRound);
-            //change ui depending on what team won
-            if (winningTeam == "blue") {
-				
-                blueWins++;
-                uiManager.changeBlueWins(blueWins);
-            }
-            else if (winningTeam == "orange") {
-				
-                orangeWins++;
-                uiManager.changeOrangeWins(orangeWins);
-            }
-            else {
-                Debug.Log("hey stupid, the teams are blue and orange");
-            }
+
+            resetPlayerPositions();
 
 			//Reset the players
             resetPlayersSugarLevel();
@@ -107,7 +116,8 @@ public class RoundManager : MonoBehaviour {
 
 			//Reset the default controls
             randomiseControllerOrientation();
-		
+            pieSpawner.isEnabled = true;
+
         } else { //that was the last round pick the winner
 			if(blueWins > orangeWins){
 				DisableMovement();

@@ -34,7 +34,7 @@ public class Projectile_Cake : MonoBehaviour
         rb.AddForce(other.contacts[0].normal * speed/5);
         // index = Random.Range(0, Smear_List.Length);
         //Smear = Smear_List[index];
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Floor")
         {
  
 

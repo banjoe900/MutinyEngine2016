@@ -90,7 +90,6 @@ public class PlayerBehavior : MonoBehaviour {
     {
         //Destroy(this.gameObject);
         //roundManager.killPlayer(playerMovement.playerNumber);
-        this.enabled = false;
         this.transform.Rotate(new Vector3(90, 0, 0));
         audioManager.PlayDeathAudio();
         if (playerMovement == null)

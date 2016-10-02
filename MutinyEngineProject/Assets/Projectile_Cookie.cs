@@ -8,6 +8,7 @@ public class Projectile_Cookie : MonoBehaviour
     public float lifetime;
     private float randRotUp;
     private Vector3 hitPos;
+    public GameObject cookie_impactParticle;
 
     private Rigidbody rb;
     public GameObject Cookie;
@@ -27,14 +28,15 @@ public class Projectile_Cookie : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Obstacle"|| other.gameObject.tag == "Cakes_Projectile" || other.gameObject.tag == "Croissants_Projectile" || other.gameObject.tag == "Cookies_Projectile")
+        if (other.gameObject.tag == "Obstacle"|| other.gameObject.tag == "Floor")
         {
-            rb.velocity = Vector3.zero;
-            hitPos = transform.position;
-            randRotUp = 0;
+            Instantiate(cookie_impactParticle, transform.position, transform.rotation);
+            Destroy(this.gameObject);
+            
         }
         if (other.gameObject.tag == "Player")
         {
+            Instantiate(cookie_impactParticle, transform.position, transform.rotation);
             other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
             Destroy(this.gameObject);
         }
