@@ -14,8 +14,9 @@ public class MenuPlayer : MonoBehaviour {
     public int playerNumber;
     public string horizontalAxis;
     public string playerReadyButton;
-    public float leftThumbstickAngle = 0;
     int currentState = 0;
+
+
 
     bool moved;
 
@@ -38,54 +39,50 @@ public class MenuPlayer : MonoBehaviour {
 
         if (!playerReady && !moved) {
             //Check which way the player wants to move and see if they meet the requirements
-            if (Input.GetAxisRaw(horizontalAxis) == 1 && currentState != 1) {
-                if (currentState == -1 || MenuManager.instance.tealTeam < 2) {
-                    this.gameObject.transform.Translate(new Vector2(300, 0));
-					Debug.Log(transform.localPosition);
+			if (Input.GetAxisRaw(horizontalAxis) == 1) {
+				if (currentState == -1) {
+					
+					transform.position = MenuManager.instance.iconPositions[playerNumber - 1].transform.position;
+					currentState = 0;
+					moved = !moved;
 
-                    if (transform.localPosition.x > 0) {
-                        currentState = 1;
-                        MenuManager.instance.tealTeam += 1;
-                        MenuManager.instance.blueTeamMembers.Add(playerNumber);
-                    }
-                    else if (currentState == 0 && MenuManager.instance.tealTeam < 2) {
-                        //don't minus from team
-						MAC.PlayNegativeSound();
-                    }
-                    else {
-                        currentState = 0;
-                        MenuManager.instance.orangeTeam -= 1;
-                        MenuManager.instance.orangeTeamMembers.Remove(playerNumber);
-                    }
-                }
 
-                moved = !moved;
+					MenuManager.instance.orangeTeam -= 1;
+					MenuManager.instance.orangeTeamMembers.Remove(playerNumber);
 
-            }
-            else if (Input.GetAxisRaw(horizontalAxis) == -1 && currentState != -1) {
-                if (currentState == 1 || MenuManager.instance.orangeTeam < 2) {
-                    this.gameObject.transform.Translate(new Vector2(-300, 0));
-					Debug.Log(transform.localPosition);
+				} else if (currentState == 0 && MenuManager.instance.tealTeam < 2){
+					transform.position = MenuManager.instance.iconPositionsRight[playerNumber - 1].transform.position;
+					currentState = 1;
+					moved = !moved;
 
-                    if (transform.localPosition.x < 0) {
-                        currentState = -1;
-                        MenuManager.instance.orangeTeam += 1;
-                        MenuManager.instance.orangeTeamMembers.Add(playerNumber);
-                    }
-                    else if (currentState == 0 && MenuManager.instance.orangeTeam < 2) {
-                        //don't minus from team
-						MAC.PlayNegativeSound();
-                    }
-                    else {
-                        currentState = 0;
-                        MenuManager.instance.tealTeam -= 1;
-                        MenuManager.instance.blueTeamMembers.Remove(playerNumber);
+					MenuManager.instance.tealTeam += 1;
+					MenuManager.instance.blueTeamMembers.Add(playerNumber);
+				}
+					                
 
-                        moved = !moved;
-                    }
+			} else if (Input.GetAxisRaw(horizontalAxis) == -1) {
+				if (currentState == 1) {
+					transform.position = MenuManager.instance.iconPositions[playerNumber - 1].transform.position;
+					currentState = 0;
+					moved = !moved;
+
+					MenuManager.instance.tealTeam -= 1;
+					MenuManager.instance.blueTeamMembers.Remove(playerNumber);
+
+				} else if (currentState == 0 && MenuManager.instance.orangeTeam < 2){
+					transform.position = MenuManager.instance.iconPositionsLeft[playerNumber - 1].transform.position;
+					currentState = -1;
+					moved = !moved;
+
+					MenuManager.instance.orangeTeam += 1;
+					MenuManager.instance.orangeTeamMembers.Add(playerNumber);
+
                 }
 
             }
+
+
+
 
             if (Input.GetButtonDown(playerReadyButton)) {
                 Debug.Log(playerReadyButton);
