@@ -74,6 +74,7 @@ public class RoundManager : MonoBehaviour {
     }
 
     private void newRound(string winningTeam) {
+
         if (winningTeam == "blue") {
 
             blueWins++;
@@ -115,9 +116,20 @@ public class RoundManager : MonoBehaviour {
 			//Reset the default controls
             randomiseControllerOrientation();
             pieSpawner.isEnabled = true;
+            for(int i = 0; i < blueTeamPlayers.Count; i++) {
+                blueTeamPlayers[i].GetComponent<Player_Projectiles>().canPickup = false;
+                blueTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit = true;
+                blueTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
+            }
+            for (int i = 0; i < orangeTeamPlayers.Count; i++) {
+                orangeTeamPlayers[i].GetComponent<Player_Projectiles>().canPickup = false;
+                orangeTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit = true;
+                orangeTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = true;
+            }
 
         } else { //that was the last round pick the winner
-			if(blueWins > orangeWins){
+            pieSpawner.isEnabled = false;
+            if (blueWins > orangeWins){
 				DisableMovement();
 				uiManager.blueWinScreen.SetActive(true);
 				winScreen = true;
@@ -145,7 +157,7 @@ public class RoundManager : MonoBehaviour {
 	public void EnableMovement(){
 		foreach (GameObject player in blueTeamPlayers)
 		{
-			player.GetComponent<PlayerMovement>().isEnabled = true;;
+			player.GetComponent<PlayerMovement>().isEnabled = true;
 		}
 		foreach (GameObject player in orangeTeamPlayers)
 		{
@@ -212,15 +224,28 @@ public class RoundManager : MonoBehaviour {
     public void killPlayer(int playerNumber) {
         for (int i = 0; i < blueTeamPlayers.Count; i++) {
             if (blueTeamPlayers[i].GetComponent<PlayerMovement>().playerNumber == playerNumber) {
-                blueDeaths++;
-                i = blueTeamPlayers.Count;
+                if(blueTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit == true) {
+                    blueTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit = false;
+                    blueTeamPlayers[i].GetComponent<Player_Projectiles>().Player_Ammo = 0;
+                    blueTeamPlayers[i].GetComponent<Player_Projectiles>().canPickup = false;
+                    blueTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = false;
+                    blueDeaths++;
+                    i = blueTeamPlayers.Count;
+                }
+
             }
         }
 
         for (int i = 0; i < orangeTeamPlayers.Count; i++) {
             if (orangeTeamPlayers[i].GetComponent<PlayerMovement>().playerNumber == playerNumber) {
-                orangeDeaths++;
-                i = orangeTeamPlayers.Count;
+                if (orangeTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit == true) {
+                    orangeDeaths++;
+                    orangeTeamPlayers[i].GetComponent<PlayerBehavior>().canBeHit = false;
+                    orangeTeamPlayers[i].GetComponent<Player_Projectiles>().Player_Ammo = 0;
+                    orangeTeamPlayers[i].GetComponent<Player_Projectiles>().canPickup = false;
+                    orangeTeamPlayers[i].GetComponent<PlayerMovement>().isEnabled = false;
+                    i = orangeTeamPlayers.Count;
+                }
             }
         }
 

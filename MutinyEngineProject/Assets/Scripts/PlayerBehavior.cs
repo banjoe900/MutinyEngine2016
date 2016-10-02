@@ -19,6 +19,8 @@ public class PlayerBehavior : MonoBehaviour {
     private RoundManager roundManager;
     private UiManager uiManager;
 
+    public bool canBeHit = true;
+
     private bool _isAlive = true;
     public bool IsAlive
     {
@@ -44,7 +46,8 @@ public class PlayerBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        audioManager = GetComponentInChildren<CharacterAudioManager>();
+        
+       audioManager = GetComponentInChildren<CharacterAudioManager>();
         playerMovement = GetComponent<PlayerMovement>();
         roundManager = GameObject.FindGameObjectWithTag("roundManager").GetComponent<RoundManager>();
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
