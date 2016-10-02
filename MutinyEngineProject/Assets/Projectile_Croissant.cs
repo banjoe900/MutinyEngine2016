@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile_Croissant: MonoBehaviour
+public class Projectile_Croissant : MonoBehaviour
 {
     public float damage;
     public float speed;
@@ -17,11 +17,11 @@ public class Projectile_Croissant: MonoBehaviour
     void Start()
     {
 
-        gameObject.transform.Rotate(new Vector3(Random.Range(-45,45), 0, 0));
+        gameObject.transform.Rotate(new Vector3(Random.Range(-45, 45), 0, 0));
         rb = GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * speed);
 
-        
+
 
         Destroy(gameObject, lifetime);
     }
@@ -44,25 +44,31 @@ public class Projectile_Croissant: MonoBehaviour
             Instantiate(croissant_impactParticle, transform.position, transform.rotation);
             Destroy(this.gameObject);
         }
+        if (other.gameObject.tag == "Projectile")
+        {
+            Destroy(other.gameObject);
+        }
         else
         {
-            Instantiate(croissant_impactParticle, transform.position, transform.rotation);
-            var targets = Physics.OverlapSphere(transform.position, splashRadius);
-            foreach (var target in targets)
             {
-                if (target != null && !target.isTrigger)
+                Instantiate(croissant_impactParticle, transform.position, transform.rotation);
+                var targets = Physics.OverlapSphere(transform.position, splashRadius);
+                foreach (var target in targets)
                 {
-                    PlayerBehavior player = target.GetComponent<PlayerBehavior>();
-                    if (player != null)
+                    if (target != null && !target.isTrigger)
                     {
-                        player.AddSugar(damage);
+                        PlayerBehavior player = target.GetComponent<PlayerBehavior>();
+                        if (player != null)
+                        {
+                            player.AddSugar(damage);
+                        }
                     }
                 }
+
+
             }
 
-                
-        }
-            
 
         }
     }
+}
