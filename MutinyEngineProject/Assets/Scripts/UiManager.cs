@@ -3,13 +3,16 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UiManager : MonoBehaviour {
-    public Text player1SugarLevelText;
-    public Text player2SugarLevelText;
-    public Text player3SugarLevelText;
-    public Text player4SugarLevelText;
+    public Slider player1SugarLevelText;
+    public Slider player2SugarLevelText;
+    public Slider player3SugarLevelText;
+    public Slider player4SugarLevelText;
 
 	public GameObject blueWinScreen;
 	public GameObject orangeWinScreen;
+
+    public GameObject blueRoundScreen;
+    public GameObject orangeRoundScreen;
 
     public Image[] cupcakes = new Image[5];
     public Sprite orangeCupCake;
@@ -29,6 +32,8 @@ public class UiManager : MonoBehaviour {
         if (blueWinScreen == null || orangeWinScreen == null) return;
 		blueWinScreen.SetActive(false);
 		orangeWinScreen.SetActive(false);
+        blueRoundScreen.SetActive(false);
+        orangeRoundScreen.SetActive(false);
     }
 
     /// <summary>
@@ -56,20 +61,18 @@ public class UiManager : MonoBehaviour {
     }
 
     public void changePlayer1SugarLevel(float newSugarLevel) {
-        player1SugarLevelText.text = newSugarLevel.ToString() + "%";
+        player1SugarLevelText.value = newSugarLevel;
     }
 
     public void changePlayer2SugarLevel(float newSugarLevel) {
-        player2SugarLevelText.text = newSugarLevel.ToString() + "%";
+        player2SugarLevelText.value = newSugarLevel;
     }
 
     public void changePlayer3SugarLevel(float newSugarLevel) {
-        player3SugarLevelText.text = newSugarLevel.ToString() + "%";
+        player3SugarLevelText.value = newSugarLevel;
     }
 
     public void changePlayer4SugarLevel(float newSugarLevel) {
-        player4SugarLevelText.text = newSugarLevel.ToString() + "%";
+        player4SugarLevelText.value = newSugarLevel;
     }
-
-
 }

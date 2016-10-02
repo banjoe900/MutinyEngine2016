@@ -37,6 +37,8 @@ public class RoundManager : MonoBehaviour {
     public Sprite bluePort;
     public Sprite orangePort;
 
+    private bool roundScreen = false;
+
     // Use this for initialization
     void Start () {
         init();
@@ -44,6 +46,10 @@ public class RoundManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if(roundScreen) {
+
+        }
 
 		if (winScreen){
 			if(Input.GetButtonDown("Submit")){
@@ -185,7 +191,7 @@ public class RoundManager : MonoBehaviour {
             //Sprite sprite = Sprite.Create(new Texture2D(128, 128), new Rect(0, 0, 128, 128), new Vector2(0, 0));
             playerBehavior.uiPlayerPort.sprite = bluePort;
             playerBehavior.uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
-            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Slider>();
             playerBehavior.updateUi();
 
             blueTeamPlayers.Add(newPlayer);
@@ -209,7 +215,7 @@ public class RoundManager : MonoBehaviour {
             playerBehavior.uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
             playerBehavior.uiPlayerPort.sprite = orangePort;
             playerBehavior.uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
-            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Slider>();
             playerBehavior.updateUi();
             orangeTeamPlayers.Add(newPlayer);
         }

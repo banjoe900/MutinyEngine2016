@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerBehavior : MonoBehaviour {
 
     public Text uiPlayerName;
-    public Text uiPlayerSugarLevel;
+    public Slider uiPlayerSugarLevel;
     public Image uiPlayerPort;
     
     public float sugarLimit = 100;
@@ -109,7 +109,7 @@ public class PlayerBehavior : MonoBehaviour {
     public void updateUi() {
         Start();
         if(uiPlayerName != null) uiPlayerName.text = "Player " + playerMovement.playerNumber.ToString();
-        if (uiPlayerSugarLevel != null) uiPlayerSugarLevel.text = sugarLevel.ToString() + "%";
+        if (uiPlayerSugarLevel != null) uiPlayerSugarLevel.value = sugarLevel;
     }
 
     public void changePortColour(string colour) {
