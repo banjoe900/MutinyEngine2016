@@ -156,4 +156,8 @@ public class MenuManager : MonoBehaviour {
             playerIcons[i] = newPlayer;
         }
     }
+
+	public void QuitGame(){
+		Application.Quit();
+	}
 }
