@@ -44,7 +44,7 @@ public class Projectile_Cake : MonoBehaviour
             cake.GetComponentInChildren<SpriteRenderer>().color = smearColour;
 
 
-            Debug.Log("smear");
+
 
           
         }

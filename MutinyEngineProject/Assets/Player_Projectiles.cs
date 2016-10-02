@@ -35,6 +35,7 @@ public class Player_Projectiles : MonoBehaviour
     public GameObject[] Pies;
     GameObject Pies_Projectile;
     int index;
+    int frame;
 
     private CharacterAudioManager audioManager;
 
@@ -88,8 +89,8 @@ public class Player_Projectiles : MonoBehaviour
                 heldCake.SetActive(false);
             }
         }
-
-        if (canPickup)
+        frame++;
+        if ((canPickup)&&(Player_Ammo == 0))
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetButtonDown(submit))
             {
@@ -97,14 +98,18 @@ public class Player_Projectiles : MonoBehaviour
                 {
                     var tempAmmo = 0;
                     var tempProjectile = currentStall.GiveUpTheGoods(out tempAmmo);
+                    int isPickingUp = 0;
                     if (tempAmmo != 0 && tempProjectile != null)
                     {
+                        isPickingUp++;
                         projectile = tempProjectile;
                         Player_Ammo = tempAmmo;
                         audioManager.PlayPickupAudio();
+                        Debug.Log("pickup");
                     }
-                    else
+                    if(isPickingUp == 0)
                     {
+                        Debug.Log("canPickup and is shooting");
                         ShootProjectile();
                     }
                 }
@@ -192,20 +197,18 @@ public class Player_Projectiles : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+    if (Player_Ammo == 0)
+        {
+
+        
         if (other.gameObject.tag == "StallTrigger")
         {
             canPickup = true;
             currentStall = other.GetComponentInParent<Stall>();
             projectileName = other.GetComponentInParent<Stall>().goodName;
         }
-        if (other.gameObject.tag == "Cake_Powerup")
-        {
-            Projectile_triple = true;
-            Destroy(other.gameObject);
-            powTime = other.GetComponentInParent<Powerup_triple>().Powerup_time;
-        }
+      }
     }
-
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "StallTrigger")
