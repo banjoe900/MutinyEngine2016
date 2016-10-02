@@ -68,7 +68,6 @@ public class RoundManager : MonoBehaviour {
         orangeDeaths = 0;
 
         uiManager = GameObject.FindGameObjectWithTag("ui").GetComponent<UiManager>();
-        uiManager.changeRoundNumber(currentRound);
         uiManager.changeBlueWins(blueWins);
         uiManager.changeBlueWins(orangeWins);
     }
@@ -96,7 +95,6 @@ public class RoundManager : MonoBehaviour {
         if (currentRound != numberOfRounds && blueWins < 3 && orangeWins < 3) {
             
             currentRound++;
-            uiManager.changeRoundNumber(currentRound);
 			
             orangeDeaths = 0;
             blueDeaths = 0;

@@ -3,9 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class UiManager : MonoBehaviour {
-    public Text roundNumbnerText;
-    public Text blueWinsText;
-    public Text orangeWinsText;
     public Text player1SugarLevelText;
     public Text player2SugarLevelText;
     public Text player3SugarLevelText;
@@ -14,12 +11,14 @@ public class UiManager : MonoBehaviour {
 	public GameObject blueWinScreen;
 	public GameObject orangeWinScreen;
 
-
+    public Image[] cupcakes = new Image[5];
+    public Sprite orangeCupCake;
+    public Sprite blueCupCake;
 
     // Use this for initialization
     void Start () {
         init();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,27 +32,27 @@ public class UiManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// updates the round number in the ui
+    /// updates the number of rounds the orange team has won in the ui
     /// </summary>
-    /// <param name="newRoundNumber">the round number that should be displayed in the ui</param>
-    public void changeRoundNumber(int newRoundNumber) {
-        roundNumbnerText.text = newRoundNumber.ToString();
+    /// <param name="newWinsNumber">the orange wins number that should be displayed in the ui</param>
+    public void changeOrangeWins(int newWinsNumber) {
+
+        for (int i = 0; i < newWinsNumber; i++)
+        {
+            cupcakes[i].sprite = orangeCupCake;
+        }
     }
 
     /// <summary>
     /// updates the number of rounds the blue team has won in the ui
     /// </summary>
     /// <param name="newWinsNumber">the blue wins number that should be displayed in the ui</param>
-    public void changeBlueWins(int newWinsNumber) {
-        blueWinsText.text = newWinsNumber.ToString();
-    }
-
-    /// <summary>
-    /// updates the number of rounds the orange team has won in the ui
-    /// </summary>
-    /// <param name="newWinsNumber">the orange wins number that should be displayed in the ui</param>
-    public void changeOrangeWins(int newWinsNumber) {
-        orangeWinsText.text = newWinsNumber.ToString();
+    public void changeBlueWins(int newWinsNumber)
+    {
+        for (int i = 0; i < newWinsNumber; i++)
+        {
+            cupcakes[cupcakes.Length - 1 - i].sprite = blueCupCake;
+        }
     }
 
     public void changePlayer1SugarLevel(float newSugarLevel) {
