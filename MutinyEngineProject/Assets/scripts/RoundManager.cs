@@ -87,18 +87,16 @@ public class RoundManager : MonoBehaviour {
         else {
             Debug.Log("hey stupid, the teams are blue and orange");
         }
-
+        if (blueWins == 2 || orangeWins == 2) {
+            GameObject.Find("music").GetComponent<AudioSource>().enabled = false;
+            GameObject.Find("lastRoundMusic").GetComponent<AudioSource>().enabled = true;
+        }
         pieSpawner.isEnabled = false;
         pieSpawner.spawnRate -= 2f;
-        if (currentRound != numberOfRounds) {
+        if (currentRound != numberOfRounds && blueWins < 3 && orangeWins < 3) {
             
-
             currentRound++;
             uiManager.changeRoundNumber(currentRound);
-            if (currentRound == numberOfRounds) {
-                GameObject.Find("music").GetComponent<AudioSource>().enabled = false;
-                GameObject.Find("lastRoundMusic").GetComponent<AudioSource>().enabled = true;
-            }
 			
             orangeDeaths = 0;
             blueDeaths = 0;
