@@ -40,6 +40,10 @@ public class MenuManager : MonoBehaviour {
     public List<int> blueTeamMembers = new List<int>();
     public List<int> orangeTeamMembers = new List<int>();
 
+	public GameObject[] iconPositions;
+	public GameObject[] iconPositionsLeft;
+	public GameObject[] iconPositionsRight;
+
 
     // Use this for initialization
     void Start() {
