@@ -10,7 +10,8 @@ public class Player_Projectiles : MonoBehaviour
     public Transform ProjectileSpawn;
     public Transform ProjectileSpawnLeft;
     public Transform ProjectileSpawnRight;
-    private bool canPickup = false;
+    public bool canPickup = false;
+    //set to false when dead and set to true on new round
 
     public enum ProjectileWeightClass { Other, Big, Small };
 
