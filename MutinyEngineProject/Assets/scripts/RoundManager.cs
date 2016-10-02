@@ -151,7 +151,7 @@ public class RoundManager : MonoBehaviour {
 		}
 		foreach (GameObject player in orangeTeamPlayers)
 		{
-			player.GetComponent<PlayerMovement>().isEnabled = true;;
+			player.GetComponent<PlayerMovement>().isEnabled = true;
 		}
 	}
 
@@ -164,6 +164,7 @@ public class RoundManager : MonoBehaviour {
 
             GameObject newPlayer = Instantiate(playerPrefab, blueStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
+            newPlayer.transform.GetChild(5).GetChild(1).GetComponent<SkinnedMeshRenderer>().material = Resources.Load("grandma_blue") as Material;
             newPlayer.GetComponent<PlayerMovement>().playerNumber = blueTeam[i];
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
@@ -183,6 +184,7 @@ public class RoundManager : MonoBehaviour {
 
             GameObject newPlayer = Instantiate(playerPrefab, orangeStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
+            newPlayer.transform.GetChild(5).GetChild(1).GetComponent<SkinnedMeshRenderer>().material = Resources.Load("grandma_orange") as Material;
             newPlayer.GetComponent<PlayerMovement>().playerNumber = orangeTeam[i];
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
             newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
