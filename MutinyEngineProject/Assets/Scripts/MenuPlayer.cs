@@ -85,12 +85,12 @@ public class MenuPlayer : MonoBehaviour {
 
 
             if (Input.GetButtonDown(playerReadyButton)) {
-                Debug.Log(playerReadyButton);
                 if (currentState != 0) {
 					MAC.PlayPositiveSound();
                     ready = Instantiate(ready, this.transform.position, Quaternion.identity) as GameObject;
                     ready.transform.SetParent(this.transform);
                     playerReady = true;
+					MenuManager.instance.readiedPlayers += 1;
                 }
             }
         }
