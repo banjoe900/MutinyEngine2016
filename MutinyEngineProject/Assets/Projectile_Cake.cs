@@ -24,8 +24,7 @@ public class Projectile_Cake : MonoBehaviour
         rb.AddTorque(transform.forward * speed);
 
 
-
-        Instantiate(impactParticle, transform.position, transform.rotation);
+        
         Destroy(gameObject, lifetime);
     }
 
@@ -45,19 +44,21 @@ public class Projectile_Cake : MonoBehaviour
             cake.GetComponentInChildren<SpriteRenderer>().color = smearColour;
 
 
-            Debug.Log("smear");
+
 
           
         }
         if (other.gameObject.tag == "Player")
         {
-            Instantiate(impactParticle, transform.position, transform.rotation);
             other.gameObject.GetComponent<PlayerBehavior>().AddSugar(damage);
             Destroy(this.gameObject);
         }
     }
 
-
+    void OnDestroy()
+    {
+        Instantiate(impactParticle, transform.position, transform.rotation);
+    }
 }
 
 
