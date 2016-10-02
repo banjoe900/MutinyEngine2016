@@ -37,6 +37,8 @@ public class RoundManager : MonoBehaviour {
     public Sprite bluePort;
     public Sprite orangePort;
 
+    private float timer = 0;
+
     // Use this for initialization
     void Start () {
         init();
@@ -46,9 +48,14 @@ public class RoundManager : MonoBehaviour {
 	void Update () {
 
 		if (winScreen){
-			if(Input.GetButtonDown("Submit")){
-					SceneManager.LoadScene(0);
-				}
+            timer += Time.deltaTime;
+            if (timer > 2)
+            {
+                if (Input.GetButtonDown("Submit"))
+                {
+                    SceneManager.LoadScene(0);
+                }
+            }
 		}
 	
 	}
