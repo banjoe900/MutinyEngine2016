@@ -34,6 +34,9 @@ public class RoundManager : MonoBehaviour {
 
     private PieSpawner pieSpawner;
 
+    public Sprite bluePort;
+    public Sprite orangePort;
+
     // Use this for initialization
     void Start () {
         init();
@@ -173,12 +176,17 @@ public class RoundManager : MonoBehaviour {
             GameObject newPlayer = Instantiate(playerPrefab, blueStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
             newPlayer.transform.GetChild(5).GetChild(1).GetComponent<SkinnedMeshRenderer>().material = Resources.Load("grandma_blue") as Material;
-            newPlayer.GetComponent<PlayerMovement>().playerNumber = blueTeam[i];
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
-            newPlayer.GetComponent<PlayerBehavior>().updateUi();
-            newPlayer.GetComponent<PlayerBehavior>().changePortColour("blue");
+
+            PlayerMovement playerMovement = newPlayer.GetComponent<PlayerMovement>();
+            PlayerBehavior playerBehavior = newPlayer.GetComponent<PlayerBehavior>();
+            playerMovement.playerNumber = blueTeam[i];
+            playerBehavior.uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
+            //Texture te Resources.Load("Portrait - Blue Team") as Texture
+            //Sprite sprite = Sprite.Create(new Texture2D(128, 128), new Rect(0, 0, 128, 128), new Vector2(0, 0));
+            playerBehavior.uiPlayerPort.sprite = bluePort;
+            playerBehavior.uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
+            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            playerBehavior.updateUi();
 
             blueTeamPlayers.Add(newPlayer);
 
@@ -193,12 +201,16 @@ public class RoundManager : MonoBehaviour {
             GameObject newPlayer = Instantiate(playerPrefab, orangeStartingPositions[i], Quaternion.identity) as GameObject;
             newPlayer.transform.SetParent(GameObject.Find("players").transform);
             newPlayer.transform.GetChild(5).GetChild(1).GetComponent<SkinnedMeshRenderer>().material = Resources.Load("grandma_orange") as Material;
-            newPlayer.GetComponent<PlayerMovement>().playerNumber = orangeTeam[i];
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
-            newPlayer.GetComponent<PlayerBehavior>().uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
-            newPlayer.GetComponent<PlayerBehavior>().updateUi();
-            newPlayer.GetComponent<PlayerBehavior>().changePortColour("orange");
+
+            PlayerMovement playerMovement = newPlayer.GetComponent<PlayerMovement>();
+            PlayerBehavior playerBehavior = newPlayer.GetComponent<PlayerBehavior>();
+
+            playerMovement.playerNumber = orangeTeam[i];
+            playerBehavior.uiPlayerPort = newUi.transform.GetChild(0).GetComponent<Image>();
+            playerBehavior.uiPlayerPort.sprite = orangePort;
+            playerBehavior.uiPlayerName = newUi.transform.GetChild(1).GetComponent<Text>();
+            playerBehavior.uiPlayerSugarLevel = newUi.transform.GetChild(2).GetComponent<Text>();
+            playerBehavior.updateUi();
             orangeTeamPlayers.Add(newPlayer);
         }
     }
